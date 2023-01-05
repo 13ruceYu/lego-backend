@@ -6,5 +6,6 @@ export default (app: Application) => {
 
   router.get('/', controller.home.index);
   router.get('/test', controller.test.index);
+  router.get('/test/:id', controller.test.index);
   router.get('/dog', dogLogger, controller.test.getDog);
 };

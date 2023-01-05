@@ -4,3 +4,9 @@ Wed Jan 04 2023 22:09:44 GMT+0800 (China Standard Time) -- GET -- /test -- 2ms
 Wed Jan 04 2023 22:10:05 GMT+0800 (China Standard Time) -- GET -- /test -- 1ms
 Wed Jan 04 2023 22:13:25 GMT+0800 (China Standard Time) -- GET -- /test -- 4ms
 Wed Jan 04 2023 22:13:37 GMT+0800 (China Standard Time) -- GET -- /dog -- 997ms
+Wed Jan 04 2023 22:54:31 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 1ms
+Wed Jan 04 2023 22:54:57 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 3ms
+Wed Jan 04 2023 23:00:29 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 8ms
+Wed Jan 04 2023 23:01:39 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 10ms
+Thu Jan 05 2023 22:55:26 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 3150ms
+Thu Jan 05 2023 22:55:41 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 1324ms
