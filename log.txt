@@ -10,3 +10,4 @@ Wed Jan 04 2023 23:00:29 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 8ms
 Wed Jan 04 2023 23:01:39 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 10ms
 Thu Jan 05 2023 22:55:26 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 3150ms
 Thu Jan 05 2023 22:55:41 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 1324ms
+Thu Jan 05 2023 23:07:10 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 850ms
