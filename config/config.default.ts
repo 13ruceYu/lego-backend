@@ -27,6 +27,9 @@ export default (appInfo: EggAppInfo) => {
     myLogger: {
       allowedMethod: [ 'POST' ],
     },
+    mongoose: {
+      url: 'mongodb://localhost:27017/hello',
+    },
   };
 
   // the return config will combines to EggAppConfig
