@@ -14,3 +14,4 @@ Thu Jan 05 2023 23:07:10 GMT+0800 (China Standard Time) -- GET -- /test/2 -- 850
 Mon Jan 09 2023 23:07:39 GMT+0800 (China Standard Time) -- GET -- / -- 5ms
 Mon Jan 09 2023 23:07:40 GMT+0800 (China Standard Time) -- GET -- /favicon.ico -- 1ms
 Mon Jan 09 2023 23:08:00 GMT+0800 (China Standard Time) -- GET -- /test -- 41ms
+Mon Jan 09 2023 23:40:39 GMT+0800 (China Standard Time) -- GET -- /test -- 20ms
