@@ -8,7 +8,7 @@ const plugin: EggPlugin = {
   },
   mongoose: {
     enable: true,
-    package: 'egg-goose',
+    package: 'egg-mongoose',
   },
 };
 

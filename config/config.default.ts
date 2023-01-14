@@ -12,7 +12,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.security = {
     csrf: {
-      enabled: false,
+      enable: false,
     },
   };
 
@@ -21,23 +21,16 @@ export default (appInfo: EggAppInfo) => {
   };
 
   config.mongoose = {
-    url: 'mongodb://localhost:27017/hello',
-    // options: {},
-    // mongoose global plugins, expected a function or an array of function and options
-    // plugins: [ createdPlugin, [ updatedPlugin, pluginOptions ]],
-
+    url: 'mongodb://localhost:27017/lego',
   };
 
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     baseUrl: 'base.url',
-    myLogger: {
-      allowedMethod: [ 'POST' ],
-    },
-    mongoose: {
-      url: 'mongodb://localhost:27017/hello',
-    },
+    // myLogger: {
+    //   allowedMethod: [ 'POST' ],
+    // },
   };
 
   // the return config will combines to EggAppConfig

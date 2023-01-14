@@ -23,19 +23,17 @@
   },
   "dependencies": {
     "axios": "^1.2.2",
-    "egg": "^2.6.1",
-    "egg-goose": "^1.0.1",
+    "egg": "^3.13.0",
     "egg-mongoose": "^3.3.1",
     "egg-scripts": "^2.6.0",
-    "egg-view-nunjucks": "^2.3.0",
-    "mongoose": "^6.8.3"
+    "egg-view-nunjucks": "^2.3.0"
   },
   "devDependencies": {
     "@eggjs/tsconfig": "^1.0.0",
     "@types/mocha": "^2.2.40",
     "@types/node": "^7.0.12",
     "@types/supertest": "^2.0.0",
-    "autod": "^3.0.1",
+    "autod": "^2.4.2",
     "autod-egg": "^1.1.0",
     "egg-bin": "^4.11.0",
     "egg-ci": "^2.1.0",
