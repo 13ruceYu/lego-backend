@@ -20,6 +20,14 @@ export default (appInfo: EggAppInfo) => {
     defaultViewEngine: 'nunjucks',
   };
 
+  config.mongoose = {
+    url: 'mongodb://localhost:27017/hello',
+    // options: {},
+    // mongoose global plugins, expected a function or an array of function and options
+    // plugins: [ createdPlugin, [ updatedPlugin, pluginOptions ]],
+
+  };
+
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

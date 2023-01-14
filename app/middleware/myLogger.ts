@@ -1,10 +1,10 @@
-import { Context, Application } from 'egg';
+import { Context } from 'egg';
 import { appendFileSync } from 'fs';
 
-export default (options: any, app: Application) => {
+export default () => {
   return async (ctx: Context, next: () => Promise<any>) => {
-    console.log('options', options);
-    console.log('default options', app.config.logger);
+    // console.log('options', options);
+    // console.log('default options', app.config.logger);
     const startTime = Date.now();
     const requestTime = new Date();
     await next();
