@@ -4,9 +4,10 @@ import { Service } from 'egg';
 export default class UserService extends Service {
   public async createByEmail(payload: UserProps) {
     const { username, password } = payload;
+    const hash = await this.ctx.genHash(password);
     const userCreateData: Partial<UserProps> = {
       username,
-      password,
+      password: hash,
       email: username,
     };
     return this.ctx.model.User.create(userCreateData);

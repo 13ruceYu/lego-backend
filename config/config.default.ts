@@ -24,6 +24,10 @@ export default (appInfo: EggAppInfo) => {
     url: 'mongodb://localhost:27017/lego',
   };
 
+  config.bcrypt = {
+    saltRounds: 10,
+  };
+
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
