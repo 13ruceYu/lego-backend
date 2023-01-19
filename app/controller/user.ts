@@ -63,11 +63,13 @@ export default class UserController extends Controller {
     if (!verifyPwd) {
       return ctx.helper.error({ ctx, errorType: 'loginCheckFailInfo' });
     }
+    ctx.cookies.set('username', user.username, { encrypt: true });
     ctx.helper.success({ ctx, res: user, msg: '登录成功' });
   }
   async show() {
     const { ctx, service } = this;
     const userData = await service.user.findById(ctx.params.id);
+    // const userData = ctx.cookies.get('username', { encrypt: true });
     ctx.helper.success({ ctx, res: userData });
   }
 }
