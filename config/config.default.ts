@@ -32,7 +32,9 @@ export default (appInfo: EggAppInfo) => {
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     baseUrl: 'base.url',
-    secret: '12345678',
+    jwt: {
+      secret: '12345678',
+    },
     // myLogger: {
     //   allowedMethod: [ 'POST' ],
     // },

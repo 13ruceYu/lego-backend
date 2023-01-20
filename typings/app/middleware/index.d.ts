@@ -3,11 +3,13 @@
 
 import 'egg';
 import ExportDogLogger from '../../../app/middleware/dogLogger';
+import ExportJwt from '../../../app/middleware/jwt';
 import ExportMyLogger from '../../../app/middleware/myLogger';
 
 declare module 'egg' {
   interface IMiddleware {
     dogLogger: typeof ExportDogLogger;
+    jwt: typeof ExportJwt;
     myLogger: typeof ExportMyLogger;
   }
 }
