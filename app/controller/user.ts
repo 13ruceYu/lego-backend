@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import { sign, verify } from 'jsonwebtoken';
 
 const userCreateRules = {
   username: 'email',
@@ -20,6 +21,10 @@ export const userErrorMessages = {
   loginCheckFailInfo: {
     errno: 101003,
     message: '用户不存在或者密码输入错误',
+  },
+  loginValidateFail: {
+    errno: 101004,
+    message: '登录校验失败',
   },
 };
 
@@ -63,13 +68,55 @@ export default class UserController extends Controller {
     if (!verifyPwd) {
       return ctx.helper.error({ ctx, errorType: 'loginCheckFailInfo' });
     }
-    ctx.cookies.set('username', user.username, { encrypt: true });
-    ctx.helper.success({ ctx, res: user, msg: '登录成功' });
+    // ctx.cookies.set('username', user.username, { encrypt: true });
+    // ctx.session.visitor = user.username;
+    // registered claims 注册相关信息
+    // public claims 公共信息：should be unique like email, address, phone number
+    const token = sign({ username: user.username }, this.app.config.secret, { expiresIn: 60 * 60 });
+    ctx.helper.success({ ctx, res: { token }, msg: '登录成功' });
+  }
+  getTokenValue() {
+    // JWT header 格式
+    // Authorization: Bearer token
+    const { ctx } = this;
+    const { authorization } = ctx.header;
+    // 没有 header 直接返回 false
+    if (!ctx.header || !authorization) {
+      return false;
+    }
+    if (typeof authorization === 'string') {
+      const parts = authorization.trim().split(' ');
+      if (parts.length === 2) {
+        const scheme = parts[0];
+        const credentials = parts[1];
+        if (/^Bearer$/i.test(scheme)) {
+          return credentials;
+        }
+      } else {
+        return false;
+      }
+    }
   }
   async show() {
-    const { ctx, service } = this;
-    const userData = await service.user.findById(ctx.params.id);
+    const { ctx, app } = this;
+    // const { visitor } = ctx.session;
+    // const userData = await service.user.findById(ctx.params.id);
+    // if (!visitor) {
+    //   return ctx.helper.error({ ctx, errorType: 'loginValidateFail' });
+    // }
     // const userData = ctx.cookies.get('username', { encrypt: true });
-    ctx.helper.success({ ctx, res: userData });
+
+    const token = this.getTokenValue();
+    if (!token) {
+      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' });
+    }
+    try {
+      const decoded = verify(token, app.config.secret);
+      ctx.helper.success({ ctx, res: decoded });
+    } catch (e) {
+      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' });
+    }
+
+    // ctx.helper.success({ ctx, res: visitor });
   }
 }
