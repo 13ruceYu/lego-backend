@@ -1,5 +1,4 @@
 import { Controller } from 'egg';
-import { sign } from 'jsonwebtoken';
 
 const userCreateRules = {
   username: 'email',
@@ -50,7 +49,7 @@ export default class UserController extends Controller {
     return errors;
   }
   async loginByEmail() {
-    const { ctx, service } = this;
+    const { ctx, service, app } = this;
     // 检查用户输入
     const error = this.validateUserInput();
     if (error) {
@@ -72,7 +71,7 @@ export default class UserController extends Controller {
     // ctx.session.visitor = user.username;
     // registered claims 注册相关信息
     // public claims 公共信息：should be unique like email, address, phone number
-    const token = sign({ username: user.username }, this.app.config.jwt.secret, { expiresIn: 60 * 60 });
+    const token = app.jwt.sign({ username: user.username }, this.app.config.jwt.secret, { expiresIn: 60 * 60 });
     ctx.helper.success({ ctx, res: { token }, msg: '登录成功' });
   }
   async show() {

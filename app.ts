@@ -1,11 +1,12 @@
+import { Application } from 'egg';
 import { IBoot } from 'egg';
 // import { join } from 'path';
 
 export default class AppBoot implements IBoot {
-  // private readonly app: Application;
-  // constructor(app: Application) {
-  //   this.app = app;
-  // }
+  private readonly app: Application;
+  constructor(app: Application) {
+    this.app = app;
+  }
   configWillLoad(): void {
     // config file have been read and merged, but not work
     // last chance to change config
@@ -17,4 +18,7 @@ export default class AppBoot implements IBoot {
   //     caseStyle: 'upper',
   //   });
   // }
+  async didReady(): Promise<void> {
+    console.log('middleware', this.app.middleware);
+  }
 }
