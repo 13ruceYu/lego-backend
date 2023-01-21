@@ -8,6 +8,14 @@ const userCreateRules = {
   },
 };
 
+const sendCodeRules = {
+  phoneNumber: {
+    type: 'string',
+    format: /^1[3-9]\d{9}$/,
+    message: '手机号码格式错误',
+  },
+};
+
 export const userErrorMessages = {
   userValidateFail: {
     errno: 101001,
@@ -25,12 +33,16 @@ export const userErrorMessages = {
     errno: 101004,
     message: '登录校验失败',
   },
+  sendVeriCodeFrequentlyFailInfo: {
+    errno: 101005,
+    message: '请勿频繁获取短信验证码',
+  },
 };
 
 export default class UserController extends Controller {
   async createByEmail() {
     const { service, ctx } = this;
-    const errors = this.validateUserInput();
+    const errors = this.validateUserInput(userCreateRules);
     if (errors) {
       return ctx.helper.error({ ctx, errorType: 'userValidateFail', error: errors });
     }
@@ -42,16 +54,37 @@ export default class UserController extends Controller {
     const userData = await service.user.createByEmail(ctx.request.body);
     ctx.helper.success({ ctx, res: userData });
   }
-  validateUserInput() {
+  validateUserInput(rules: any) {
     const { ctx, app } = this;
-    const errors = app.validator.validate(userCreateRules, ctx.request.body);
+    const errors = app.validator.validate(rules, ctx.request.body);
     ctx.logger.warn(errors);
     return errors;
+  }
+  async sendVeriCode() {
+    const { ctx, app } = this;
+    const { phoneNumber } = ctx.request.body;
+    const error = this.validateUserInput(sendCodeRules);
+    if (error) {
+      return ctx.helper.error({ ctx, errorType: 'userValidateFail', error });
+    }
+    // 获取 redis 数据
+    // phoneVeriCode-13311112222
+    const preVeriCode = await app.redis.get(`phoneVeriCode-${phoneNumber}`);
+    // 判断是否存在
+    if (preVeriCode) {
+      return ctx.helper.error({ ctx, errorType: 'sendVeriCodeFrequentlyFailInfo' });
+    }
+    // [0 - 1)
+    // [0 - 1) * 9000 = [0, 9000)
+    // [0 - 9000) + 1000 = [1000, 10000)
+    const veriCode = Math.floor(Math.random() * 9000 + 1000).toString();
+    await app.redis.set(`phoneVeriCode-${phoneNumber}`, veriCode, 'ex', 60);
+    ctx.helper.success({ ctx, res: { veriCode } });
   }
   async loginByEmail() {
     const { ctx, service, app } = this;
     // 检查用户输入
-    const error = this.validateUserInput();
+    const error = this.validateUserInput(userCreateRules);
     if (error) {
       return ctx.helper.error({ ctx, errorType: 'userValidateFail', error });
     }
