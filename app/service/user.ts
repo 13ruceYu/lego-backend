@@ -38,4 +38,21 @@ export default class UserService extends Service {
     const token = app.jwt.sign({ username: newUser.username }, app.config.jwt.secret);
     return token;
   }
+  async getAccessToken(code: string) {
+    const { ctx, app } = this;
+    const { cid, secret, redirectURL, authURL } = app.config.giteeOauthConfig;
+    const { data } = await ctx.curl(authURL, {
+      method: 'post',
+      contentType: 'json',
+      dataType: 'json',
+      data: {
+        code,
+        client_id: cid,
+        client_secret: secret,
+        redirect_uri: redirectURL,
+      },
+    });
+    app.logger.info(data);
+    return data;
+  }
 }

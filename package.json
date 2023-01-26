@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "axios": "^1.2.2",
+    "dotenv": "^16.0.3",
     "egg": "^3.13.0",
     "egg-bcrypt": "^1.1.0",
     "egg-jwt": "^3.1.7",

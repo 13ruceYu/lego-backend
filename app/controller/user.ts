@@ -155,4 +155,17 @@ export default class UserController extends Controller {
 
     ctx.helper.success({ ctx, res: userData });
   }
+  async oauth() {
+    const { app, ctx } = this;
+    const { cid, redirectURL } = app.config.giteeOauthConfig;
+    ctx.redirect(`https://gitee.com/oauth/authorize?client_id=${cid}&redirect_uri=${redirectURL}&response_type=code`);
+  }
+  async oauthByGitee() {
+    const { ctx } = this;
+    const { code } = ctx.request.query;
+    const resp = await ctx.service.user.getAccessToken(code);
+    if (resp) {
+      ctx.helper.success({ ctx, res: resp });
+    }
+  }
 }
