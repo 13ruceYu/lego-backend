@@ -60,7 +60,6 @@ export default class UserService extends Service {
         redirect_uri: redirectURL,
       },
     });
-    app.logger.info(data);
     return data.access_token;
   }
   // get gitee user data
