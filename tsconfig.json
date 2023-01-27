@@ -5,7 +5,8 @@
     "app/views",
     "node_modules*"
   ],
-  // "compilerOptions": {
-  //   "module": "esnext"
-  // },
+  "compilerOptions": {
+    // "module": "esnext"
+    "experimentalDecorators": true
+  },
 }
