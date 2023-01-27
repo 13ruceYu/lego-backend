@@ -19,6 +19,6 @@ export default class AppBoot implements IBoot {
   //   });
   // }
   async didReady(): Promise<void> {
-    console.log('middleware', this.app.middleware);
+    console.log('---middleware---', this.app.baseDir);
   }
 }
