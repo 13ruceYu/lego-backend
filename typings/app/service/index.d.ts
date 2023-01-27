@@ -1,4 +1,4 @@
-// This file is created by egg-ts-helper@1.34.1
+// This file is created by egg-ts-helper@1.34.2
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
@@ -9,11 +9,13 @@ type AutoInstanceType<T, U = T extends CanExportFunc ? T : T extends AnyFunc ? R
 import ExportTest from '../../../app/service/Test';
 import ExportDog from '../../../app/service/dog';
 import ExportUser from '../../../app/service/user';
+import ExportWork from '../../../app/service/work';
 
 declare module 'egg' {
   interface IService {
     test: AutoInstanceType<typeof ExportTest>;
     dog: AutoInstanceType<typeof ExportDog>;
     user: AutoInstanceType<typeof ExportUser>;
+    work: AutoInstanceType<typeof ExportWork>;
   }
 }

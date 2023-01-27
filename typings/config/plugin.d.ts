@@ -1,4 +1,4 @@
-// This file is created by egg-ts-helper@1.34.1
+// This file is created by egg-ts-helper@1.34.2
 // Do not modify this file!!!!!!!!!
 
 import 'egg';

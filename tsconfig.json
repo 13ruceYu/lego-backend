@@ -4,5 +4,8 @@
     "app/public",
     "app/views",
     "node_modules*"
-  ]
+  ],
+  // "compilerOptions": {
+  //   "module": "esnext"
+  // },
 }
