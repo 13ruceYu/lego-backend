@@ -12,7 +12,7 @@ export default function checkPermission(modelName: string, errorType: GlobalErro
       const { id } = ctx.params;
       const userId = ctx.state.user._id;
       const certainRecord = await ctx.model[modelName].findOne({ id });
-      if (!certainRecord && certainRecord[userKey].toString() !== userId) {
+      if (!certainRecord || certainRecord[userKey].toString() !== userId) {
         return ctx.helper.error({ ctx, errorType });
       }
       await originalMethod.apply(this, args);

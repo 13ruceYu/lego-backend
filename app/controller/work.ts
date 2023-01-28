@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import checkPermission from '../decorator/checkPermission';
 import inputValidator from '../decorator/inputValidator';
 
 const workCreateRules = {
@@ -53,40 +54,31 @@ export default class WorkController extends Controller {
     const res = await ctx.service.work.getList(listCondition);
     ctx.helper.success({ ctx, res });
   }
-  async checkPermission(id: number) {
-    const { ctx } = this;
-    // 获取当前用户 id
-    const userId = ctx.state.user._id;
-    // 查询作品信息
-    const certainWork = await this.ctx.model.Work.findOne({ id });
-    if (!certainWork) {
-      return false;
-    }
-    // 检查是否相等，特别注意转换成字符串
-    return certainWork.user.toString() === userId;
-  }
+  @checkPermission('Work', 'workNoPermissionFail')
   async update() {
     const { ctx } = this;
     const { id } = ctx.params;
-    const permission = await this.checkPermission(id);
-
-    if (!permission) {
-      return ctx.helper.error({ ctx, errorType: 'workNoPermissionFail' });
-    }
-
     const payload = ctx.request.body;
     const res = await this.ctx.model.Work.findOneAndUpdate({ id }, payload, { new: true }).lean();
     ctx.helper.success({ ctx, res });
   }
+  @checkPermission('Work', 'workNoPermissionFail')
   async delete() {
     const { ctx } = this;
     const { id } = ctx.params;
-    const permission = await this.checkPermission(id);
-
-    if (!permission) {
-      return ctx.helper.error({ ctx, errorType: 'workNoPermissionFail' });
-    }
     const res = await this.ctx.model.Work.findOneAndDelete({ id }).select('id _id title').lean();
     ctx.helper.success({ ctx, res });
+  }
+  @checkPermission('Work', 'workNoPermissionFail')
+  async publish(isTemplate: boolean) {
+    const { ctx } = this;
+    const url = await this.service.work.publish(ctx.params.id, isTemplate);
+    ctx.helper.success({ ctx, res: { url } });
+  }
+  async publishWork() {
+    await this.publish(false);
+  }
+  async publishTemplate() {
+    await this.publish(true);
   }
 }

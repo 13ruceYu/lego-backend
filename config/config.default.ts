@@ -58,6 +58,7 @@ export default (appInfo: EggAppInfo) => {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     baseUrl: 'base.url',
     giteeOauthConfig,
+    H5BaseURL: 'http://localhost:7001/api/pages',
     // myLogger: {
     //   allowedMethod: [ 'POST' ],
     // },
