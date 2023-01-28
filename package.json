@@ -16,7 +16,6 @@
     "test": "npm run lint -- --fix && npm run test-local",
     "cov": "egg-bin cov",
     "tsc": "ets && tsc -p tsconfig.json",
-    "ci": "npm run lint && npm run cov && npm run tsc",
     "autod": "autod",
     "lint": "eslint . --ext .ts --resolve-plugins-relative-to .",
     "clean": "ets clean"
@@ -45,7 +44,6 @@
     "autod": "^2.4.2",
     "autod-egg": "^1.1.0",
     "egg-bin": "^4.11.0",
-    "egg-ci": "^2.1.0",
     "egg-mock": "^3.16.0",
     "eslint": "^8.0.0",
     "eslint-config-egg": "^12.0.0",
@@ -53,9 +51,6 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "ci": {
-    "version": "14, 16, 18"
   },
   "repository": {
     "type": "git",
