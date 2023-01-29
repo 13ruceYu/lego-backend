@@ -12,6 +12,7 @@ logs/
 *.js
 !.autod.conf.js
 .env
+uploads/
 
 app/**/*.js
 test/**/*.js
