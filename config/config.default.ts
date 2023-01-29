@@ -11,6 +11,10 @@ export default (appInfo: EggAppInfo) => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1671114951190_7890';
 
+  config.logger = {
+    level: 'DEBUG',
+  };
+
   // add your egg config in here
   config.middleware = [ 'customError' ];
 
