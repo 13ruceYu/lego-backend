@@ -41,7 +41,7 @@
     "@eggjs/tsconfig": "^1.0.0",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/mocha": "^2.2.40",
-    "@types/node": "^7.0.12",
+    "@types/node": "16",
     "@types/supertest": "^2.0.0",
     "autod": "^2.4.2",
     "autod-egg": "^1.1.0",
