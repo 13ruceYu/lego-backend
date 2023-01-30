@@ -49,10 +49,10 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
-  config.multipart = {
-    mode: 'file',
-    tmpdir: join(appInfo.baseDir, 'uploads'),
-  };
+  // config.multipart = {
+  //   mode: 'file',
+  //   tmpdir: join(appInfo.baseDir, 'uploads'),
+  // };
 
   config.static = {
     dir: [
