@@ -28,6 +28,7 @@
     "egg-bcrypt": "^1.1.0",
     "egg-jwt": "^3.1.7",
     "egg-mongoose": "^3.3.1",
+    "egg-oss": "^3.1.0",
     "egg-redis": "^2.4.0",
     "egg-scripts": "^2.6.0",
     "egg-validate": "^2.0.2",
@@ -35,10 +36,12 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose-sequence": "^5.3.1",
     "nanoid": "3",
-    "sharp": "^0.31.3"
+    "sharp": "^0.31.3",
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
     "@eggjs/tsconfig": "^1.0.0",
+    "@types/ali-oss": "^6.16.7",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/mocha": "^2.2.40",
     "@types/node": "16",

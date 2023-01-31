@@ -61,6 +61,21 @@ export default (appInfo: EggAppInfo) => {
     ],
   };
 
+  config.oss = {
+    client: {
+      accessKeyId: process.env.ALC_ACCESS_KEY || '',
+      accessKeySecret: process.env.ALC_SECRET_KEY || '',
+      bucket: 'lego-backend-vue',
+      endpoint: 'oss-cn-hangzhou.aliyuncs.com',
+    },
+  };
+
+  // const aliCloudConfig = {
+  //   accessKeyId: process.env.ALC_ACCESS_KEY,
+  //   accessKeySecret: process.env.ALC_SECRET_KEY,
+  //   endpoint: 'dysmsapi.aliyuncs.com',
+  // };
+
   // gitee oauth config
   const giteeOauthConfig = {
     cid: process.env.GITEE_CID,
@@ -74,6 +89,7 @@ export default (appInfo: EggAppInfo) => {
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     baseUrl: 'base.url',
+    // aliCloudConfig,
     giteeOauthConfig,
     H5BaseURL: 'http://localhost:7001/api/pages',
     // myLogger: {
