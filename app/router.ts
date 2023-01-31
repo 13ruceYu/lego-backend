@@ -28,5 +28,5 @@ export default (app: Application) => {
   router.post('/api/works/publish/:id', jwtMiddleware, controller.work.publishWork);
   router.post('/api/works/publish-template/:id', jwtMiddleware, controller.work.publishTemplate);
 
-  router.post('/api/utils/upload', controller.utils.testBusboy);
+  router.post('/api/utils/upload', controller.utils.uploadMultipleFiles);
 };

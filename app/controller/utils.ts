@@ -6,6 +6,7 @@ import { createWriteStream } from 'fs';
 import { pipeline } from 'stream/promises';
 import * as sendToWormhole from 'stream-wormhole';
 import busboy from 'busboy';
+import { FileStream } from '../../typings/app';
 
 export default class UtilsController extends Controller {
   async fileLocalUpload() {
@@ -96,5 +97,28 @@ export default class UtilsController extends Controller {
     const { ctx } = this;
     const results = await this.uploadFileUseBusboy();
     ctx.helper.success({ ctx, res: results });
+  }
+  async uploadMultipleFiles() {
+    const { ctx } = this;
+    const parts = ctx.multipart();
+    const urls: string[] = [];
+    let part: FileStream | string[];
+    // 还能这么写。。
+    while ((part = await parts())) {
+      if (Array.isArray(part)) {
+        console.log('---part---', part);
+      } else {
+        try {
+          const saveOssPath = join('imooc-test', nanoid(6) + extname(part.filename));
+          const result = await ctx.oss.put(saveOssPath, part);
+          const { url } = result;
+          urls.push(url);
+        } catch (err) {
+          await sendToWormhole(part);
+          ctx.helper.error({ ctx, errorType: 'imgUploadFail' });
+        }
+      }
+    }
+    ctx.helper.success({ ctx, res: { urls } });
   }
 }
