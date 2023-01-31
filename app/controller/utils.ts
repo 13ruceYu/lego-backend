@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import { createWriteStream } from 'fs';
 import { pipeline } from 'stream/promises';
 import * as sendToWormhole from 'stream-wormhole';
+import busboy from 'busboy';
 
 export default class UtilsController extends Controller {
   async fileLocalUpload() {
@@ -60,12 +61,40 @@ export default class UtilsController extends Controller {
     const saveOssPath = join('imooc-test', nanoid(6) + extname(stream.filename));
     try {
       const result = await ctx.oss.put(saveOssPath, stream);
-      console.log('---res---', result);
       const { name, url } = result;
       ctx.helper.success({ ctx, res: { name, url } });
     } catch (err) {
       await sendToWormhole(stream);
       ctx.helper.error({ ctx, errorType: 'imgUploadFail' });
     }
+  }
+  uploadFileUseBusboy() {
+    const { ctx, app } = this;
+    return new Promise(resolve => {
+      const bsb = busboy({ headers: ctx.req.headers as any });
+      const results: string[] = [];
+      bsb.on('file', (name, file, info) => {
+        console.log('----on file----', name, file, info);
+        const uid = nanoid(6);
+        const savedFilePath = join(app.config.baseDir, 'uploads', uid + extname(info.filename));
+        file.pipe(createWriteStream(savedFilePath));
+        file.on('end', () => {
+          results.push(savedFilePath);
+        });
+      });
+      bsb.on('field', (name, val) => {
+        console.log(`----Field [${name}]: value: %j----`, val);
+      });
+      bsb.on('finish', () => {
+        console.log('----finish----');
+        resolve(results);
+      });
+      ctx.req.pipe(bsb);
+    });
+  }
+  async testBusboy() {
+    const { ctx } = this;
+    const results = await this.uploadFileUseBusboy();
+    ctx.helper.success({ ctx, res: results });
   }
 }
