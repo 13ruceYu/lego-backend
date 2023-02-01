@@ -7,6 +7,8 @@ import { pipeline } from 'stream/promises';
 import * as sendToWormhole from 'stream-wormhole';
 import busboy from 'busboy';
 import { FileStream } from '../../typings/app';
+import { createSSRApp } from 'vue';
+import { renderToString } from '@vue/server-renderer';
 
 export default class UtilsController extends Controller {
   async fileLocalUpload() {
@@ -125,5 +127,16 @@ export default class UtilsController extends Controller {
       }
     }
     ctx.helper.success({ ctx, res: { urls } });
+  }
+  async renderH5Page() {
+    const { ctx } = this;
+    const vueApp = createSSRApp({
+      data: () => ({ msg: 'hello ssr' }),
+      template: '<h1>{{msg}}</h1>',
+    });
+    const appContent = await renderToString(vueApp);
+    ctx.response.type = 'text/html';
+    ctx.body = appContent;
+
   }
 }
