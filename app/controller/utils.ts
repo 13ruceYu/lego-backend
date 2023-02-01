@@ -99,8 +99,9 @@ export default class UtilsController extends Controller {
     ctx.helper.success({ ctx, res: results });
   }
   async uploadMultipleFiles() {
-    const { ctx } = this;
-    const parts = ctx.multipart();
+    const { ctx, app } = this;
+    const { fileSize } = app.config.multipart;
+    const parts = ctx.multipart({ limits: { fileSize: fileSize as number } });
     const urls: string[] = [];
     let part: FileStream | string[];
     // 还能这么写。。
@@ -113,6 +114,10 @@ export default class UtilsController extends Controller {
           const result = await ctx.oss.put(saveOssPath, part);
           const { url } = result;
           urls.push(url);
+          if (part.truncated) {
+            await ctx.oss.delete(saveOssPath);
+            return ctx.helper.error({ ctx, errorType: 'imageUploadFailSizeError', error: `Reach fileSize limit ${fileSize} bytes` });
+          }
         } catch (err) {
           await sendToWormhole(part);
           ctx.helper.error({ ctx, errorType: 'imgUploadFail' });

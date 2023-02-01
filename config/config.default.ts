@@ -49,10 +49,10 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
-  // config.multipart = {
-  //   mode: 'file',
-  //   tmpdir: join(appInfo.baseDir, 'uploads'),
-  // };
+  config.multipart = {
+    whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
+    fileSize: '100kb',
+  };
 
   config.static = {
     dir: [
