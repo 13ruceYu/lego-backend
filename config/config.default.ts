@@ -16,7 +16,7 @@ export default (appInfo: EggAppInfo) => {
   };
 
   // add your egg config in here
-  config.middleware = [ 'customError' ];
+  // config.middleware = [ 'customError' ]; move to app.ts
 
   config.security = {
     csrf: {
@@ -37,7 +37,9 @@ export default (appInfo: EggAppInfo) => {
   };
 
   config.jwt = {
-    secret: '12345678',
+    secret: process.env.JWT_SECRET || '',
+    enable: true,
+    match: [ '/api/users/getUserInfo', '/api/works', '/api/utils/upload-img' ],
   };
 
   config.redis = {

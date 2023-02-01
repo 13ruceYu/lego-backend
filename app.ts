@@ -11,14 +11,13 @@ export default class AppBoot implements IBoot {
     // config file have been read and merged, but not work
     // last chance to change config
     // this.app.config.coreMiddleware.unshift('myLogger');
+    // 在此添加 customError 中间件，从而提前执行顺序
+    this.app.config.coreMiddleware.push('customError');
   }
   // async willReady(): Promise<void> {
-  //   const dir = join(this.app.config.baseDir, 'app/model');
-  //   this.app.loader.loadToApp(dir, 'model', {
-  //     caseStyle: 'upper',
-  //   });
+  //   console.log('---middleware---', this.app.config.coreMiddleware);
   // }
   async didReady(): Promise<void> {
-    console.log('---middleware---', this.app.baseDir);
+    console.log('---middleware---', this.app.middleware);
   }
 }
