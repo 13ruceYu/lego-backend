@@ -1,9 +1,15 @@
 import { Controller } from 'egg';
+import { nanoid } from 'nanoid';
 import checkPermission from '../decorator/checkPermission';
 import inputValidator from '../decorator/inputValidator';
 
 const workCreateRules = {
   title: 'string',
+};
+
+const channelCreateRules = {
+  name: 'string',
+  workId: 'number',
 };
 
 export interface IndexCondition {
@@ -16,6 +22,45 @@ export interface IndexCondition {
 }
 
 export default class WorkController extends Controller {
+  @inputValidator(channelCreateRules, 'channelValidateFail')
+  async createChannel() {
+    const { ctx } = this;
+    const { name, workId } = ctx.request.body;
+    const newChannel = {
+      name,
+      id: nanoid(6),
+    };
+    const res = await ctx.model.Work.findOneAndUpdate({ id: workId }, { $push: { channels: newChannel } });
+    if (res) {
+      ctx.helper.success({ ctx, res: newChannel });
+    } else {
+      ctx.helper.error({ ctx, errorType: 'channelValidateFail' });
+    }
+  }
+  async getWorkChannel() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const certainWork = await ctx.model.Work.findOne({ id });
+    if (certainWork) {
+      const { channels } = certainWork;
+      ctx.helper.success({ ctx, res: { count: channels ? channels.length : 0, list: channels } });
+    } else {
+      ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
+    }
+  }
+  async updateChannelName() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const { name } = ctx.request.body;
+    await ctx.model.Work.findOneAndUpdate({ 'channels.id': id }, { $set: { 'channels.$.name': name } });
+    ctx.helper.success({ ctx, res: { name } });
+  }
+  async deleteChannel() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const work = await ctx.model.Work.findOneAndUpdate({ 'channels.id': id }, { $pull: { channels: { id } } }, { new: true });
+    ctx.helper.success({ ctx, res: work });
+  }
   @inputValidator(workCreateRules, 'workValidateFail')
   async createWork() {
     const { ctx, service } = this;
