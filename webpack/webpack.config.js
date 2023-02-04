@@ -2,8 +2,11 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const buildFileDest = path.resolve(__dirname, '../app/public');
+const templateFileDest = path.resolve(__dirname, '../app/view');
 
 module.exports = {
   mode: 'production',
@@ -26,12 +29,25 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
     }),
     new HtmlWebpackPlugin({
-      file: 'page.nj',
+      filename: 'page.nj',
       template: path.resolve(__dirname, './template.html'),
+    }),
+    new FileManagerPlugin({
+      events: {
+        onEnd: {
+          copy: [
+            {
+              source: path.join(buildFileDest, 'page.nj'),
+              destination: path.join(templateFileDest, 'page.nj'),
+            },
+          ],
+        },
+      },
     }),
   ],
 };

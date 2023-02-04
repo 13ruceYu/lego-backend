@@ -1,2 +1,2 @@
 import 'lego-components/dist/lego-components.css';
-console.log('hello webpack');
+console.log('hello cat');
