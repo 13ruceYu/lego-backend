@@ -24,6 +24,7 @@
     "upload": "node webpack/uploadToOSS.js"
   },
   "dependencies": {
+    "@casl/ability": "^6.3.3",
     "@types/busboy": "^1.5.0",
     "@types/sharp": "^0.31.1",
     "ali-oss": "^6.17.1",
