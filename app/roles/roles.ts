@@ -18,6 +18,7 @@ export default function defineRoles(user: UserProps & Document<any, any, UserPro
       can('read', 'Work', { user: user._id });
       can('update', 'Work', [ 'title', 'desc', 'content', 'coverImg' ], { user: user._id });
       can('delete', 'Work', { user: user._id });
+      can('publish', 'Work', { user: user._id });
 
       // channels: 创建更新删除自己的 channel
       can('create', 'Channel', [ 'name', 'workId' ], { user: user._id });
