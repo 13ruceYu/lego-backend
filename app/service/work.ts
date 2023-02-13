@@ -8,7 +8,7 @@ const defaultIndexCondition: Required<IndexCondition> = {
   pageIndex: 0,
   pageSize: 10,
   select: '',
-  populate: {},
+  populate: { path: '' },
   customSort: { createdAt: -1 },
   find: {},
 };
@@ -20,7 +20,7 @@ export default class WorkService extends Service {
     const uuid = nanoid(6);
     const newEmptyWork: Partial<WorkProps> = {
       ...payload,
-      user: Types.ObjectId(_id),
+      user: new Types.ObjectId(_id),
       author: username,
       uuid,
     };
