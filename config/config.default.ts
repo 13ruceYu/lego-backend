@@ -42,14 +42,14 @@ export default (appInfo: EggAppInfo) => {
     match: [ '/api/users/getUserInfo', '/api/works', '/api/utils/upload-img', '/api/channel' ],
   };
 
-  // config.redis = {
-  //   client: {
-  //     port: 6379,
-  //     host: '127.0.0.1',
-  //     password: '',
-  //     db: 0,
-  //   },
-  // };
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: '',
+      db: 0,
+    },
+  };
 
   config.multipart = {
     whitelist: [ '.png', '.jpg', '.gif', '.webp' ],

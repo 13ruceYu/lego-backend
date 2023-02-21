@@ -9,5 +9,12 @@ export default () => {
       pass: process.env.MONGO_DB_PASSWORD,
     },
   };
+  config.redis = {
+    client: {
+      port: 6379,
+      host: 'lego-redis',
+      password: process.env.REDIS_PASSWORD,
+    },
+  };
   return config;
 };

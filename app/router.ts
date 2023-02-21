@@ -8,7 +8,7 @@ export default (app: Application) => {
   // const dogLogger = app.middleware.dogLogger({ allowedMethod: [ 'GET' ] }, app);
   router.prefix('/api');
 
-  router.get('/', controller.home.index);
+  router.get('/ping', controller.home.index);
   router.get('/test', controller.test.index);
   // router.get('/test/:id', controller.test.index);
   // router.get('/dog', dogLogger, controller.test.getDog);

@@ -10,9 +10,19 @@ services:
       - 27017:27017
     env_file:
       - .env
+  lego-redis:
+    image: redis
+    container_name: lege-redis
+    command: >
+      --requirepass ${REDIS_PASSWORD}
+    ports:
+      - 6379:6379
+    env_file:
+      - .env
   lego-backend:
     depends_on:
       - lego-mongo
+      - lego-redis
     build:
       context: .
       dockerfile: Dockerfile
