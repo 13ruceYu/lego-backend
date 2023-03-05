@@ -17,8 +17,8 @@ jobs:
         with:
           login-server: 'https://registry.cn-hangzhou.aliyuncs.com' # example: https://my-test-registry.cn-hangzhou.cr.aliyuncs.com
           region-id: 'cn-hangzhou' # example: cn-hangzhou
-          access-key-id: "${{ secrets.ACR_USERNAME }}"
-          access-key-secret: "${{ secrets.ACR_PASSWORD }}"
+          username: "${{ secrets.ACR_USERNAME }}"
+          password: "${{ secrets.ACR_PASSWORD }}"
       # 使用正确的阿里云 tag 进行 docker build
       - name: Build image for Docker
         run: docker build --tag "registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.2" .
