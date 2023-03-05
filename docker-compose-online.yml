@@ -23,7 +23,7 @@ services:
     depends_on:
       - lego-mongo
       - lego-redis
-    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.1
+    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.3
     container_name: lego-backend
     ports:
       - 7002:7001
