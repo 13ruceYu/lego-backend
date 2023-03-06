@@ -12,7 +12,7 @@ services:
       - .env
   lego-redis:
     image: redis:6
-    container_name: lege-redis
+    container_name: lego-redis
     # command: >
     #   --requirepass ${REDIS_PASSWORD}
     ports:

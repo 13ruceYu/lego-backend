@@ -21,6 +21,6 @@ jobs:
           password: "${{ secrets.ACR_PASSWORD }}"
       # 使用正确的阿里云 tag 进行 docker build
       - name: Build image for Docker
-        run: docker build --tag "registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.2" .
+        run: docker build --tag "registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.4" .
       - name: Push Image to ACR
-        run: docker push registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.2
+        run: docker push registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.4

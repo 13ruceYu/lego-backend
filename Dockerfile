@@ -5,5 +5,5 @@ COPY package.json /usr/src/app/
 RUN npm install
 COPY . /usr/src/app
 RUN npm run tsc
-EXPOSE 7007
-CMD npx egg-scripts start --title=egg-server-lego-backend
+EXPOSE 7001
+CMD npx egg-scripts start --title=lego-backend
