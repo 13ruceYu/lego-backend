@@ -13,8 +13,8 @@ services:
   lego-redis:
     image: redis:6
     container_name: lego-redis
-    # command: >
-    #   --requirepass ${REDIS_PASSWORD}
+    command: >
+      --requirepass ${REDIS_PASSWORD}
     ports:
       - 6379:6379
     env_file:
@@ -23,9 +23,9 @@ services:
     depends_on:
       - lego-mongo
       - lego-redis
-    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.3
+    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.4
     container_name: lego-backend
     ports:
-      - 7002:7001
+      - 7001:7001
     env_file:
     - .env
