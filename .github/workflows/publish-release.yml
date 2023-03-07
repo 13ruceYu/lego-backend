@@ -38,7 +38,7 @@ jobs:
       - name: Build image for ACR docker
         run: docker build --tag "registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:${{github.ref_name}}" .
       - name: Push Image to ACR
-        run: docker push registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:{{github.ref_name}}
+        run: docker push registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:${{github.ref_name}}
       # 测试查找并替换
       - name: Find and replace
         uses: jacobtomlinson/gha-find-replace@v3
