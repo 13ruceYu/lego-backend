@@ -21,7 +21,8 @@
     "clean": "ets clean",
     "build:template:dev": "npx webpack --config webpack/webpack.config.js",
     "build:template:prod": "npx webpack --config webpack/webpack.config.js --env production && npm run upload",
-    "upload": "node webpack/uploadToOSS.js"
+    "upload": "node webpack/uploadToOSS.js",
+    "release": "release-it"
   },
   "dependencies": {
     "@casl/ability": "^6.3.3",
@@ -67,6 +68,7 @@
     "filemanager-webpack-plugin": "^8.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
+    "release-it": "^15.7.0",
     "typescript": "^4.0.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
