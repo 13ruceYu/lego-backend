@@ -1,2 +1,17 @@
 Wed Aug 30 2023 20:58:52 GMT+0800 (China Standard Time) -- GET -- /dog -- 925ms
 Wed Aug 30 2023 20:58:52 GMT+0800 (China Standard Time) -- GET -- /dog -- 928ms
+Wed Aug 30 2023 21:17:55 GMT+0800 (China Standard Time) -- GET -- /test/3?hello=world -- 27ms
+Wed Aug 30 2023 22:03:02 GMT+0800 (China Standard Time) -- GET -- / -- 11ms
+Wed Aug 30 2023 22:03:53 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 15ms
+Wed Aug 30 2023 22:04:18 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 131530ms
+Wed Aug 30 2023 22:06:30 GMT+0800 (China Standard Time) -- GET -- /favicon.ico -- 4ms
+Thu Sep 07 2023 08:43:46 GMT+0800 (China Standard Time) -- GET -- /test/3?hello=world -- 84ms
+Thu Sep 07 2023 08:43:46 GMT+0800 (China Standard Time) -- GET -- /favicon.ico -- 2ms
+Tue Sep 12 2023 21:58:01 GMT+0800 (China Standard Time) -- GET -- / -- 5ms
+Wed Sep 13 2023 07:25:46 GMT+0800 (China Standard Time) -- GET -- /test -- 11ms
+Wed Sep 13 2023 07:26:03 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 36ms
+Thu Sep 14 2023 22:07:58 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 56ms
+Thu Sep 14 2023 22:07:59 GMT+0800 (China Standard Time) -- GET -- /favicon.ico -- 1ms
+Thu Sep 14 2023 22:28:55 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 12ms
+Thu Sep 14 2023 22:34:45 GMT+0800 (China Standard Time) -- GET -- / -- 7ms
+Thu Sep 14 2023 22:37:07 GMT+0800 (China Standard Time) -- GET -- / -- 6ms

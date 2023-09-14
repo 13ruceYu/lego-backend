@@ -5,10 +5,6 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-view-nunjucks'
   },
-  hello: {
-    enable: true,
-    package: 'egg-viking'
-  }
 };
 
 export default plugin;

@@ -1,6 +1,5 @@
 import { Application } from 'egg'
 import { Schema } from 'mongoose'
-import AppBoot from '../../app'
 
 function initUserModel(app: Application) {
   const UserSchema = new Schema({

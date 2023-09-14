@@ -1,5 +1,4 @@
 import { Service } from 'egg'
-import { Schema } from 'mongoose'
 interface DogResp {
   message: string;
   status: string;
@@ -13,7 +12,8 @@ export default class DogService extends Service {
   }
 
   async showPlayers() {
-    const result = await this.app.model.User.find({ age: { $gt: 30 } }).exec()
+    const { app } = this
+    const result = await app.model.User.find()
     return result
   }
 }

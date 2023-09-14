@@ -1,4 +1,5 @@
 import { Context } from 'egg'
+
 interface RespType {
   ctx: Context;
   res?: any;

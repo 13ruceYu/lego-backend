@@ -1,6 +1,8 @@
 import { Application } from 'egg'
 import axios, { AxiosInstance } from 'axios'
+
 const AXIOS = Symbol('Application#axios')
+
 export default {
   echo(msg: string) {
     const that = this as Application
