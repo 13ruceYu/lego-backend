@@ -28,7 +28,10 @@ export default (appInfo: EggAppInfo) => {
     },
     baseUrl: 'default.url',
     mongoose: {
-      url: 'mongodb://localhost:27017/hello'
+      url: 'mongodb://127.0.0.1:27017/hello',
+      options: {},
+      // mongoose global plugins, expected a function or an array of function and options
+      // plugins: [ createdPlugin, [ updatedPlugin, pluginOptions ]],
     }
   };
 
