@@ -1,13 +1,28 @@
 import { Application } from 'egg'
 import { Schema } from 'mongoose'
 
-function initUserModel(app: Application) {
-  const UserSchema = new Schema({
-    name: { type: String },
-    age: { type: Number },
-    hobbies: { type: Array },
-    team: { type: Schema.Types.ObjectId, ref: 'Team' },
-  }, { collection: 'user' })
-  return app.mongoose.model('user', UserSchema)
+interface IUserProps {
+  username: string;
+  password: string;
+  email: string;
+  nickName: string;
+  picture: string;
+  phoneNumber: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
+
+function initUserModel(app: Application) {
+  const UserSchema = new Schema<IUserProps>({
+    username: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    nickName: String,
+    picture: String,
+    email: String,
+    phoneNumber: String
+  }, { timestamps: true })
+
+  return app.mongoose.model<IUserProps>('User', UserSchema)
+}
+
 export default initUserModel
