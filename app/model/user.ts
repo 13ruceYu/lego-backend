@@ -1,7 +1,7 @@
 import { Application } from 'egg'
 import { Schema } from 'mongoose'
 
-interface IUserProps {
+export interface IUserProps {
   username: string;
   password: string;
   email: string;

@@ -65,3 +65,7 @@ Sat Sep 16 2023 13:29:19 GMT+0800 (China Standard Time) -- GET -- /favicon.ico -
 Sat Sep 16 2023 13:30:05 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 6ms
 Sat Sep 16 2023 13:31:07 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 2ms
 Sat Sep 16 2023 13:31:39 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 16ms
+Mon Sep 18 2023 09:30:39 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 36ms
+Mon Sep 18 2023 20:57:43 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 14ms
+Mon Sep 18 2023 21:25:12 GMT+0800 (China Standard Time) -- POST -- /api/users/create -- 11ms
+Mon Sep 18 2023 21:25:59 GMT+0800 (China Standard Time) -- GET -- /api/users/65084fb8fadd36ba04b4c8d7 -- 5ms
