@@ -13,9 +13,11 @@ export default class UserService extends Service {
 
     return ctx.model.User.create(userCreatedData)
   }
+
   async findById(id: string) {
     const { ctx } = this;
+    const result = await ctx.model.User.findById(id)
 
-    return ctx.model.User.findById(id)
+    return result
   }
 }
