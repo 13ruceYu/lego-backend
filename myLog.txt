@@ -69,3 +69,5 @@ Mon Sep 18 2023 09:30:39 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 36m
 Mon Sep 18 2023 20:57:43 GMT+0800 (China Standard Time) -- GET -- /test/1 -- 14ms
 Mon Sep 18 2023 21:25:12 GMT+0800 (China Standard Time) -- POST -- /api/users/create -- 11ms
 Mon Sep 18 2023 21:25:59 GMT+0800 (China Standard Time) -- GET -- /api/users/65084fb8fadd36ba04b4c8d7 -- 5ms
+Thu Sep 21 2023 07:03:03 GMT+0800 (China Standard Time) -- POST -- /api/users/create -- 11ms
+Thu Sep 21 2023 07:03:44 GMT+0800 (China Standard Time) -- POST -- /api/users/create -- 2ms
