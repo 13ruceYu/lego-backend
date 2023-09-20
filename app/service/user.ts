@@ -20,4 +20,9 @@ export default class UserService extends Service {
 
     return result
   }
+
+  async findByUsername(username: string) {
+    const { ctx } = this
+    return ctx.model.User.findOne({ username })
+  }
 }

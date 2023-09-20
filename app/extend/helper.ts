@@ -1,4 +1,5 @@
 import { Context } from 'egg'
+import { userErrorMessage } from '../controller/user'
 
 interface IRespType {
   ctx: Context;
@@ -8,8 +9,8 @@ interface IRespType {
 
 interface IErrorRespType {
   ctx: Context;
-  errno: number;
-  msg?: string;
+  errorType: keyof (typeof userErrorMessage);
+  error?: any;
 }
 
 export default {
@@ -21,10 +22,12 @@ export default {
     }
     ctx.status = 200
   },
-  error({ ctx, msg, errno }: IErrorRespType) {
+  error({ ctx, error, errorType }: IErrorRespType) {
+    const { message, errno } = userErrorMessage[errorType]
     ctx.body = {
       errno,
-      message: msg ? msg : '请求错误'
+      message,
+      ...(error && { error })
     }
     ctx.status = 200
   }
