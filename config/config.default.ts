@@ -20,6 +20,12 @@ export default (appInfo: EggAppInfo) => {
   config.logger = {
     consoleLevel: 'DEBUG'
   }
+  config.mongoose = {
+    url: 'mongodb://127.0.0.1:27017/lego',
+  }
+  config.bcrypt = {
+    saltRound: 10
+  }
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
@@ -27,12 +33,6 @@ export default (appInfo: EggAppInfo) => {
       allowedMethod: [ 'POST', 'GET' ]
     },
     baseUrl: 'default.url',
-    mongoose: {
-      url: 'mongodb://127.0.0.1:27017/lego',
-      options: {},
-      // mongoose global plugins, expected a function or an array of function and options
-      // plugins: [ createdPlugin, [ updatedPlugin, pluginOptions ]],
-    }
   };
 
   // the return config will combines to EggAppConfig
