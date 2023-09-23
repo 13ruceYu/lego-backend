@@ -20,7 +20,13 @@ function initUserModel(app: Application) {
     picture: String,
     email: String,
     phoneNumber: String
-  }, { timestamps: true })
+  }, {
+    timestamps: true, toJSON: {
+      transform(_doc, ret) {
+        delete ret.password;
+        delete ret.__v;
+      }
+    } })
 
   return app.mongoose.model<IUserProps>('User', UserSchema)
 }
