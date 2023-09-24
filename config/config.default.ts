@@ -26,6 +26,14 @@ export default (appInfo: EggAppInfo) => {
   config.bcrypt = {
     saltRound: 10
   }
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: '',
+      db: 0,
+    }
+  }
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

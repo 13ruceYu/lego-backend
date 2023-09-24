@@ -11,17 +11,19 @@ export interface IUserProps {
   phoneNumber: string;
   createdAt: Date;
   updatedAt: Date;
+  type: 'email' | 'cellphone'
 }
 
 function initUserModel(app: Application) {
   const AutoIncrement = AutoIncrementFactory(app.mongoose)
   const UserSchema = new Schema<IUserProps>({
     username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
+    password: { type: String },
     nickName: String,
     picture: String,
     email: String,
-    phoneNumber: String
+    phoneNumber: String,
+    type: { type: String, default: 'email' }
   }, {
     timestamps: true,
     toJSON: {
