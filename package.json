@@ -29,10 +29,12 @@
     "egg-scripts": "^2.6.0",
     "egg-validate": "^2.0.2",
     "egg-view-nunjucks": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^5.13.20",
     "mongoose-sequence": "^5.3.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.3",
     "@types/mocha": "^2.2.40",
     "@types/node": "^7.0.12",
     "@types/supertest": "^2.0.0",

@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import { sign, verify } from 'jsonwebtoken';
 
 const userCreateRules = {
   username: 'email',
@@ -15,8 +16,12 @@ export const userErrorMessage = {
     message: '该邮箱已被注册，请直接登录'
   },
   loginCheckFailInfo: {
-    errno: 1101003,
+    errno: 101003,
     message: '用户不存在或者密码错误'
+  },
+  loginValidateFail: {
+    errno: 101004,
+    message: '登录校验失败'
   }
 }
 
@@ -42,7 +47,7 @@ export default class UserController extends Controller {
   }
 
   async loginByEmail() {
-    const { ctx, service } = this;
+    const { ctx, service, app } = this;
     const error = this.validateUserInput()
     if (error) {
       return ctx.helper.error({ ctx, errorType: 'userValidateFail', error })
@@ -57,12 +62,40 @@ export default class UserController extends Controller {
     if (!isPwdCorrect) {
       return ctx.helper.error({ ctx, errorType: 'loginCheckFailInfo' })
     }
-    ctx.helper.success({ ctx, res: user.toJSON(), msg: '登录成功' })
+    const token = sign({ username: user.username }, app.config.secret, { expiresIn: '1h' })
+    ctx.helper.success({ ctx, res: { token }, msg: '登录成功' })
+  }
+
+  getTokenValue() {
+    // JWT header 格式
+    // Authorization: Bearer xxxx
+    const { ctx } = this;
+    const { authorization } = ctx.header;
+    if (!ctx.header || !authorization) {
+      return false
+    }
+    if (typeof authorization === 'string') {
+      const parts = authorization.trim().split(' ');
+      if (parts.length === 2) {
+        const [ schema, credential ] = parts;
+        return (schema === 'Bearer' ? credential : false);
+      }
+    } else {
+      return false;
+    }
   }
 
   async show() {
-    const { ctx, service } = this
-    const userData = await service.user.findById(ctx.params.id)
-    ctx.helper.success({ ctx, res: userData })
+    const { ctx, app } = this
+    const token = this.getTokenValue();
+    if (!token) {
+      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' });
+    }
+    try {
+      const decoded = verify(token, app.config.secret)
+      return ctx.helper.success({ ctx, res: { decoded } })
+    } catch (e) {
+      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' });
+    }
   }
 }
