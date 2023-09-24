@@ -23,7 +23,8 @@ function initUserModel(app: Application) {
     email: String,
     phoneNumber: String
   }, {
-    timestamps: true, toJSON: {
+    timestamps: true,
+    toJSON: {
       transform(_doc, ret) {
         delete ret.password;
         delete ret.__v;
