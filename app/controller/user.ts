@@ -34,6 +34,10 @@ export const userErrorMessage = {
   sendVeriCodeFrequentlyInfo: {
     errno: 101005,
     message: '请勿频繁获取短信验证码'
+  },
+  loginVeriCodeIncorrectFailInfo: {
+    errno: 101006,
+    message: '验证码不正确'
   }
 }
 
@@ -76,6 +80,21 @@ export default class UserController extends Controller {
     }
     const token = sign({ username: user.username }, app.config.jwt.secret, { expiresIn: '1h' })
     ctx.helper.success({ ctx, res: { token }, msg: '登录成功' })
+  }
+
+  async loginByPhoneNumber() {
+    const { ctx, app } = this;
+    const { phoneNumber, veriCode } = ctx.request.body;
+    const error = this.validateUserInput(sendCodeRules);
+    if (error) {
+      return ctx.helper.error({ ctx, errorType: 'userValidateFail', error })
+    }
+    const preVeriCode = await app.redis.get(`phoneVeriCode-${phoneNumber}`)
+    if (veriCode !== preVeriCode) {
+      return ctx.helper.error({ ctx, errorType: 'loginVeriCodeIncorrectFailInfo' })
+    }
+    const token = await ctx.service.user.loginByCellphone(phoneNumber)
+    ctx.helper.success({ ctx, res: { token } })
   }
 
   async sendVeriCode() {
