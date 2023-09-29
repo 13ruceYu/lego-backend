@@ -14,4 +14,10 @@ export default (app: Application) => {
   router.post('/api/users/loginByEmail', controller.user.loginByEmail)
   router.post('/api/users/loginByPhoneNumber', controller.user.loginByPhoneNumber)
   router.post('/api/users/sendVeriCode', controller.user.sendVeriCode)
+
+  router.get('/api/users/passport/gitee', controller.user.oauth)
+  router.get('/api/users/oauth/gitee/callback', controller.user.oauthByGitee)
+
+  router.get('/api/users/passport/github', controller.user.oauthGithub)
+  router.get('/api/users/oauth/github/callback', controller.user.oauthByGithub)
 };

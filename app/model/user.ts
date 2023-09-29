@@ -11,7 +11,9 @@ export interface IUserProps {
   phoneNumber: string;
   createdAt: Date;
   updatedAt: Date;
-  type: 'email' | 'cellphone'
+  type: 'email' | 'cellphone' | 'oauth';
+  provider?: 'github' | 'gitee';
+  oauthId?: string;
 }
 
 function initUserModel(app: Application) {
@@ -23,7 +25,9 @@ function initUserModel(app: Application) {
     picture: String,
     email: String,
     phoneNumber: String,
-    type: { type: String, default: 'email' }
+    type: { type: String, default: 'email' },
+    provider: String,
+    oauthId: String
   }, {
     timestamps: true,
     toJSON: {

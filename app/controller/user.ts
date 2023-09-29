@@ -38,6 +38,10 @@ export const userErrorMessage = {
   loginVeriCodeIncorrectFailInfo: {
     errno: 101006,
     message: '验证码不正确'
+  },
+  githubOauthError: {
+    errno: 101007,
+    message: 'Github 授权出错'
   }
 }
 
@@ -122,4 +126,37 @@ export default class UserController extends Controller {
     const userData = await service.user.findByUsername(ctx.state.user.username);
     ctx.helper.success({ ctx, res: userData })
   }
+
+  async oauth() {
+    const { app, ctx } = this
+    const { cid, redirectURL } = app.config.giteeOAuthConfig;
+    ctx.redirect(`https://gitee.com/oauth/authorize?client_id=${cid}&redirect_uri=${redirectURL}&response_type=code`)
+  }
+
+  async oauthGithub() {
+    const { app, ctx } = this
+    const { cid, redirectURL } = app.config.githubOAuthConfig;
+    ctx.redirect(`https://github.com/login/oauth/authorize?client_id=${cid}&redirect_uri=${redirectURL}`)
+  }
+
+  async oauthByGitee() {
+    const { ctx } = this;
+    const { code } = ctx.request.body;
+    const resp = await this.service.user.getAccessToken(code)
+    if (resp) {
+      ctx.helper.success({ ctx, res: resp })
+    }
+  }
+
+  async oauthByGithub() {
+    const { ctx } = this;
+    const { code } = ctx.request.query;
+    try {
+      const token = await this.service.user.loginByGithub(code)
+      ctx.helper.success({ ctx, res: { token } });
+    } catch (e) {
+      return ctx.helper.error({ ctx, errorType: 'githubOauthError' })
+    }
+  }
+
 }

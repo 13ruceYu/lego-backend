@@ -1,4 +1,5 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
+import 'dotenv/config'
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
@@ -34,6 +35,19 @@ export default (appInfo: EggAppInfo) => {
       db: 0,
     }
   }
+  const giteeOAuthConfig = {
+    cid: process.env.GITEE_CID,
+    secret: process.env.GITEE_SECRET,
+    redirectURL: 'http://localhost:7001/api/users/oauth/gitee/callback',
+    authURL: 'https://gitee.com/oauth/token?grant_type=authorization_code'
+  }
+  const githubOAuthConfig = {
+    cid: process.env.GITHUB_CID,
+    secret: process.env.GITHUB_SECRET,
+    redirectURL: 'http://localhost:7001/api/users/oauth/github/callback',
+    authURL: 'https://github.com/login/oauth/access_token',
+    githubUserApi: 'https://api.github.com/user'
+  }
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
@@ -43,7 +57,9 @@ export default (appInfo: EggAppInfo) => {
     baseUrl: 'default.url',
     jwt: {
       secret: 'i am secret',
-    }
+    },
+    giteeOAuthConfig,
+    githubOAuthConfig
   };
 
   // the return config will combines to EggAppConfig
