@@ -26,6 +26,7 @@
     "dotenv": "^16.3.1",
     "egg": "^2.6.1",
     "egg-bcrypt": "^1.1.0",
+    "egg-cors": "^2.2.3",
     "egg-mongoose": "^3.3.1",
     "egg-redis": "^2.5.0",
     "egg-scripts": "^2.6.0",

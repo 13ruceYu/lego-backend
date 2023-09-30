@@ -21,6 +21,10 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-redis'
   },
+  cors: {
+    enable: true,
+    package: 'egg-cors'
+  }
 };
 
 export default plugin;
