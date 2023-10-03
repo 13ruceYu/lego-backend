@@ -271,3 +271,6 @@ Sun Oct 01 2023 04:42:11 GMT+0800 (China Standard Time) -- GET -- /api/users/get
 Sun Oct 01 2023 04:42:42 GMT+0800 (China Standard Time) -- GET -- /api/users/passport/github -- 2ms
 Sun Oct 01 2023 04:42:42 GMT+0800 (China Standard Time) -- GET -- /api/users/oauth/github/callback?code=27ee5248cded274a9ade -- 1517ms
 Sun Oct 01 2023 04:42:46 GMT+0800 (China Standard Time) -- GET -- /api/users/getUserInfo -- 5ms
+Tue Oct 03 2023 11:01:58 GMT+0800 (China Standard Time) -- POST -- /api/users/sendVeriCode -- 17ms
+Tue Oct 03 2023 11:02:06 GMT+0800 (China Standard Time) -- POST -- /api/users/loginByPhoneNumber -- 17ms
+Tue Oct 03 2023 11:02:34 GMT+0800 (China Standard Time) -- POST -- /api/works -- 34ms

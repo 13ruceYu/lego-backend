@@ -41,7 +41,7 @@ export default class UserService extends Service {
     const user = await this.findByUsername(cellphone);
     // 检查 user 是否存在
     if (user) {
-      const token = sign({ username: user.username }, app.config.jwt.secret)
+      const token = sign({ username: user.username, _id: user._id }, app.config.jwt.secret)
       return token;
     }
     // 新建一个用户
@@ -52,7 +52,7 @@ export default class UserService extends Service {
       type: 'cellphone'
     }
     const newUser = await ctx.model.User.create(userCreateData)
-    const token = sign({ username: newUser.username }, app.config.jwt.secret)
+    const token = sign({ username: newUser.username, _id: newUser._id }, app.config.jwt.secret)
     return token;
   }
 
@@ -115,7 +115,7 @@ export default class UserService extends Service {
     const existUser = await this.findByUsername(username)
     // 如果用户存在
     if (existUser) {
-      const token = sign({ username }, app.config.jwt.secret)
+      const token = sign({ username, _id: existUser._id }, app.config.jwt.secret)
       return token;
     }
     // 如果用户不存在
@@ -130,7 +130,7 @@ export default class UserService extends Service {
     }
 
     const newUser = await this.ctx.model.User.create(userCreateData)
-    const token = sign({ username: newUser.username }, app.config.jwt.secret)
+    const token = sign({ username: newUser.username, _id: newUser._id }, app.config.jwt.secret)
     return token;
   }
 }

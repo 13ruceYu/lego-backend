@@ -82,7 +82,7 @@ export default class UserController extends Controller {
     if (!isPwdCorrect) {
       return ctx.helper.error({ ctx, errorType: 'loginCheckFailInfo' })
     }
-    const token = sign({ username: user.username }, app.config.jwt.secret, { expiresIn: '1h' })
+    const token = sign({ username: user.username, _id: user._id }, app.config.jwt.secret, { expiresIn: '1h' })
     ctx.helper.success({ ctx, res: { token }, msg: '登录成功' })
   }
 

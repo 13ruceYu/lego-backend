@@ -20,4 +20,6 @@ export default (app: Application) => {
 
   router.get('/api/users/passport/github', controller.user.oauthGithub)
   router.get('/api/users/oauth/github/callback', controller.user.oauthByGithub)
+
+  router.post('/api/works', jwt, controller.work.createWork)
 };
