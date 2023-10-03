@@ -4,13 +4,6 @@ const workCreateRules = {
   title: 'string'
 }
 
-export const workErrorMessages = {
-  workValidateFail: {
-    errno: 102001,
-    message: '输入信息验证失败'
-  }
-}
-
 export default class WorkController extends Controller {
   validateUserInput(rules: any) {
     const { ctx, app } = this;
