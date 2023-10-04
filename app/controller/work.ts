@@ -1,22 +1,14 @@
 import { Controller } from 'egg';
+import validateInput from '../decorator/inputValidate';
 
 const workCreateRules = {
   title: 'string'
 }
 
 export default class WorkController extends Controller {
-  validateUserInput(rules: any) {
-    const { ctx, app } = this;
-    const error = app.validator.validate(rules, ctx.request.body)
-    return error
-  }
-
+  @validateInput(workCreateRules, 'workValidateFail')
   async createWork() {
     const { ctx, service } = this;
-    const errors = this.validateUserInput(workCreateRules)
-    if (errors) {
-      return ctx.helper.error({ ctx, errorType: 'workValidateFail', error: errors })
-    }
     const workData = await service.work.createEmptyWork(ctx.request.body);
     ctx.helper.success({ ctx, res: workData });
   }
