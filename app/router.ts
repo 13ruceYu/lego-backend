@@ -22,4 +22,5 @@ export default (app: Application) => {
   router.get('/api/users/oauth/github/callback', controller.user.oauthByGithub)
 
   router.post('/api/works', jwt, controller.work.createWork)
+  router.get('/api/works', jwt, controller.work.myList)
 };

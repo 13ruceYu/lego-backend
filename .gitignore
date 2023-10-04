@@ -25,3 +25,5 @@ test/**/*.map
 config/**/*.map
 
 .env
+
+myLog.txt
