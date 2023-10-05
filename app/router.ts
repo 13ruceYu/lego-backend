@@ -23,4 +23,6 @@ export default (app: Application) => {
 
   router.post('/api/works', jwt, controller.work.createWork)
   router.get('/api/works', jwt, controller.work.myList)
+  router.patch('/api/works/:id', jwt, controller.work.update)
+  router.delete('/api/works/:id', jwt, controller.work.delete)
 };
