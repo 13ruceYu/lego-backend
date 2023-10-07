@@ -1,6 +1,6 @@
+import { IWorkProps } from '../model/work';
 import { Service } from 'egg';
 import { nanoid } from 'nanoid'
-import { IWorkProps } from '../model/work';
 import { Types } from 'mongoose';
 import { IIndexCondition } from '../controller/work'
 
@@ -45,5 +45,16 @@ export default class WorkService extends Service {
       pageSize,
       pageIndex
     }
+  }
+  async publish(id: number, isTemplate = false) {
+    const { ctx, app } = this;
+    const { H5BaseURL } = app.config;
+    const payload: Partial<IWorkProps> = {
+      status: 2,
+      latestPublishAt: new Date(),
+      ...(isTemplate && { isTemplate: true })
+    }
+    const res = await ctx.model.Work.findOneAndUpdate({ id }, payload, { new: true });
+    return `${H5BaseURL}/p/${id}-${res?.uuid}`;
   }
 }

@@ -63,7 +63,8 @@ export default (appInfo: EggAppInfo) => {
       secret: 'i am secret',
     },
     giteeOAuthConfig,
-    githubOAuthConfig
+    githubOAuthConfig,
+    H5BaseURL: 'http://localhost:7001/api/pages',
   };
 
   // the return config will combines to EggAppConfig

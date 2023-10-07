@@ -15,7 +15,8 @@ export interface IWorkProps {
   author: string;
   copiedCount: number;
   status?: 0 | 1 | 2;
-  user: ObjectId
+  user: ObjectId;
+  latestPublishAt?: Date;
 }
 
 function initWorkModel(app: Application) {
@@ -32,7 +33,8 @@ function initWorkModel(app: Application) {
     author: String,
     copiedCount: { type: Number, default: 0 },
     status: { type: Number, default: 1 },
-    user: { type: Schema.Types.ObjectId, ref: 'User' }
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    latestPublishAt: { type: Date },
   }, {
     timestamps: true,
     toJSON: {

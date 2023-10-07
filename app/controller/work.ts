@@ -1,5 +1,6 @@
 import { Controller } from 'egg';
 import validateInput from '../decorator/inputValidate';
+import checkPermission from '../decorator/checkPermission'
 
 export interface IIndexCondition {
   pageIndex?: number;
@@ -54,34 +55,31 @@ export default class WorkController extends Controller {
     const res = await ctx.service.work.getList(listCondition);
     ctx.helper.success({ ctx, res });
   }
-  async checkPermission(id: string) {
-    const { ctx } = this;
-    const userId = ctx.state.user._id;
-    const certainWork = await ctx.model.Work.findOne({ id: parseInt(id) });
-    if (!certainWork) {
-      return false;
-    }
-    return certainWork.user.toString() === userId;
-  }
+  @checkPermission('Work', 'workNoPermissionFail')
   async update() {
     const { ctx } = this;
     const { id } = ctx.params;
-    const permission = await this.checkPermission(id);
-    if (!permission) {
-      return ctx.helper.error({ ctx, errorType: 'workNoPermissionFail' });
-    }
     const payload = ctx.request.body;
     const res = await this.ctx.model.Work.findOneAndUpdate({ id }, payload, { new: true });
     ctx.helper.success({ ctx, res });
   }
+  @checkPermission('Work', 'workNoPermissionFail')
   async delete() {
     const { ctx } = this;
     const { id } = ctx.params;
-    const permission = await this.checkPermission(id);
-    if (!permission) {
-      return ctx.helper.error({ ctx, errorType: 'workNoPermissionFail' });
-    }
     const res = await ctx.model.Work.findOneAndDelete({ id }).select([ '_id', 'id', 'title' ]);
     ctx.helper.success({ ctx, res });
+  }
+  @checkPermission('Work', 'workNoPermissionFail')
+  async publish(isTemplate: boolean) {
+    const { ctx } = this;
+    const url = ctx.service.work.publish(ctx.params.id, isTemplate)
+    ctx.helper.success({ ctx, res: url })
+  }
+  async publishWork() {
+    await this.publish(false)
+  }
+  async publishTemplate() {
+    await this.publish(true);
   }
 }
