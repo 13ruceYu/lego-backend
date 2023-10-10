@@ -1,8 +1,8 @@
 import { IWorkProps } from '../model/work';
 import { Service } from 'egg';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import { Types } from 'mongoose';
-import { IIndexCondition } from '../controller/work'
+import { IIndexCondition } from '../controller/work';
 
 const defaultIndexCondition: Required<IIndexCondition> = {
   pageIndex: 0,
@@ -10,9 +10,9 @@ const defaultIndexCondition: Required<IIndexCondition> = {
   select: '',
   populate: '',
   customSort: { createdAt: -1 },
-  find: {}
+  find: {},
 
-}
+};
 
 export default class WorkService extends Service {
   async createEmptyWork(payload) {
@@ -23,8 +23,8 @@ export default class WorkService extends Service {
       ...payload,
       user: Types.ObjectId(_id),
       author: username,
-      uuid
-    }
+      uuid,
+    };
     return ctx.model.Work.create(newEmptyWork);
   }
   async getList(condition: IIndexCondition) {
@@ -43,8 +43,8 @@ export default class WorkService extends Service {
       list,
       count,
       pageSize,
-      pageIndex
-    }
+      pageIndex,
+    };
   }
   async publish(id: number, isTemplate = false) {
     const { ctx, app } = this;
@@ -52,8 +52,8 @@ export default class WorkService extends Service {
     const payload: Partial<IWorkProps> = {
       status: 2,
       latestPublishAt: new Date(),
-      ...(isTemplate && { isTemplate: true })
-    }
+      ...(isTemplate && { isTemplate: true }),
+    };
     const res = await ctx.model.Work.findOneAndUpdate({ id }, payload, { new: true });
     return `${H5BaseURL}/p/${id}-${res?.uuid}`;
   }

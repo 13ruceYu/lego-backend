@@ -1,5 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
-import 'dotenv/config'
+import 'dotenv/config';
+import { join } from 'path';
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
@@ -12,51 +13,61 @@ export default (appInfo: EggAppInfo) => {
 
   config.security = {
     csrf: {
-      enable: false
-    }
-  }
+      enable: false,
+    },
+  };
   config.view = {
-    defaultViewEngine: 'nunjucks'
-  }
+    defaultViewEngine: 'nunjucks',
+  };
   config.logger = {
-    consoleLevel: 'DEBUG'
-  }
+    consoleLevel: 'DEBUG',
+  };
   config.mongoose = {
     url: 'mongodb://127.0.0.1:27017/lego',
-  }
+  };
   config.bcrypt = {
-    saltRound: 10
-  }
+    saltRound: 10,
+  };
   config.redis = {
     client: {
       port: 6379,
       host: '127.0.0.1',
       password: '',
       db: 0,
-    }
-  }
+    },
+  };
   config.cors = {
     origin: '*',
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
-  }
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
+  config.multipart = {
+    mode: 'file',
+    tmpdir: join(appInfo.baseDir, 'uploads'),
+  };
+  config.static = {
+    dir: [
+      { prefix: '/public', dir: join(appInfo.baseDir, 'app/public') },
+      { prefix: '/uploads', dir: join(appInfo.baseDir, 'uploads') },
+    ],
+  };
   const giteeOAuthConfig = {
     cid: process.env.GITEE_CID,
     secret: process.env.GITEE_SECRET,
     redirectURL: 'http://localhost:7001/api/users/oauth/gitee/callback',
-    authURL: 'https://gitee.com/oauth/token?grant_type=authorization_code'
-  }
+    authURL: 'https://gitee.com/oauth/token?grant_type=authorization_code',
+  };
   const githubOAuthConfig = {
     cid: process.env.GITHUB_CID,
     secret: process.env.GITHUB_SECRET,
     redirectURL: 'http://localhost:7001/api/users/oauth/github/callback',
     authURL: 'https://github.com/login/oauth/access_token',
-    githubUserApi: 'https://api.github.com/user'
-  }
+    githubUserApi: 'https://api.github.com/user',
+  };
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     myLogger: {
-      allowedMethod: [ 'POST', 'GET' ]
+      allowedMethod: [ 'POST', 'GET' ],
     },
     baseUrl: 'default.url',
     jwt: {

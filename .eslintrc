@@ -2,9 +2,9 @@
   "extends": "eslint-config-egg/typescript",
   "rules": {
     "indent": "off",
-    "@typescript-eslint/semi": ["off", "always"],
     "@typescript-eslint/no-unused-vars": 1,
-    "comma-dangle": 0
+    "comma-dangle": 1,
+    "semi": 1
   },
   "parserOptions": {
     "project": "./tsconfig.json"

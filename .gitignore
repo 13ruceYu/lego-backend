@@ -27,3 +27,4 @@ config/**/*.map
 .env
 
 myLog.txt
+uploads

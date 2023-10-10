@@ -1,6 +1,6 @@
-import { Application } from 'egg'
-import { Schema, ObjectId } from 'mongoose'
-import * as AutoIncrementFactory from 'mongoose-sequence'
+import { Application } from 'egg';
+import { Schema, ObjectId } from 'mongoose';
+import * as AutoIncrementFactory from 'mongoose-sequence';
 
 export interface IWorkProps {
   id?: number;
@@ -20,7 +20,7 @@ export interface IWorkProps {
 }
 
 function initWorkModel(app: Application) {
-  const AutoIncrement = AutoIncrementFactory(app.mongoose)
+  const AutoIncrement = AutoIncrementFactory(app.mongoose);
   const WorkSchema = new Schema<IWorkProps>({
     uuid: { type: String, unique: true },
     title: String,
@@ -41,11 +41,11 @@ function initWorkModel(app: Application) {
       transform(_doc, ret) {
         delete ret.password;
         delete ret.__v;
-      }
-    }
-  })
-  WorkSchema.plugin(AutoIncrement, { inc_field: 'id', id: 'works_id_counter' })
-  return app.mongoose.model<IWorkProps>('Work', WorkSchema)
+      },
+    },
+  });
+  WorkSchema.plugin(AutoIncrement, { inc_field: 'id', id: 'works_id_counter' });
+  return app.mongoose.model<IWorkProps>('Work', WorkSchema);
 }
 
-export default initWorkModel
+export default initWorkModel;
