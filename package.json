@@ -35,7 +35,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^5.13.20",
     "mongoose-sequence": "^5.3.1",
-    "nanoid": "^3.3.6"
+    "nanoid": "^3.3.6",
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.3",
