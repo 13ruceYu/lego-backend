@@ -9,11 +9,11 @@ export default function validateInput(rules: any, errorType: GlobalErrorTypes) {
       // eslint-disable-next-line
       // @ts-ignore
       const { ctx, app } = that;
-      const errors = app.validator.validate(rules, ctx.request.body)
+      const errors = app.validator.validate(rules, ctx.request.body);
       if (errors) {
         return ctx.helper.error({ ctx, error: errors, errorType });
       }
-      return originalMethod.apply(this, args)
-    }
-  }
+      return originalMethod.apply(this, args);
+    };
+  };
 }

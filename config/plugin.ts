@@ -3,28 +3,28 @@ import { EggPlugin } from 'egg';
 const plugin: EggPlugin = {
   nunjucks: {
     enable: true,
-    package: 'egg-view-nunjucks'
+    package: 'egg-view-nunjucks',
   },
   mongoose: {
     enable: true,
-    package: 'egg-mongoose'
+    package: 'egg-mongoose',
   },
   validate: {
     enable: true,
-    package: 'egg-validate'
+    package: 'egg-validate',
   },
   bcrypt: {
     enable: true,
-    package: 'egg-bcrypt'
+    package: 'egg-bcrypt',
   },
   redis: {
     enable: true,
-    package: 'egg-redis'
+    package: 'egg-redis',
   },
   cors: {
     enable: true,
-    package: 'egg-cors'
-  }
+    package: 'egg-cors',
+  },
 };
 
 export default plugin;

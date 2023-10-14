@@ -15,7 +15,7 @@ export default function checkPermission(modelName: string, errorType: GlobalErro
       if (!certainRecord || certainRecord[userKey].toString() !== userId) {
         return ctx.helper.error({ ctx, errorType });
       }
-      await originMethod.apply(this, args)
-    }
-  }
+      await originMethod.apply(this, args);
+    };
+  };
 }

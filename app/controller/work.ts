@@ -1,6 +1,6 @@
 import { Controller } from 'egg';
 import validateInput from '../decorator/inputValidate';
-import checkPermission from '../decorator/checkPermission'
+import checkPermission from '../decorator/checkPermission';
 
 export interface IIndexCondition {
   pageIndex?: number;
@@ -12,8 +12,8 @@ export interface IIndexCondition {
 }
 
 const workCreateRules = {
-  title: 'string'
-}
+  title: 'string',
+};
 
 export default class WorkController extends Controller {
   @validateInput(workCreateRules, 'workValidateFail')
@@ -25,22 +25,22 @@ export default class WorkController extends Controller {
 
   async myList() {
     const { ctx } = this;
-    const userId = ctx.state.user._id
+    const userId = ctx.state.user._id;
     const { pageIndex, pageSize, isTemplate, title } = ctx.query;
     const findCondition = {
       user: userId,
       ...(title && { title: { $regex: title, $options: 'i' } }),
-      ...(isTemplate && { isTemplate: !!parseInt(isTemplate) })
-    }
+      ...(isTemplate && { isTemplate: !!parseInt(isTemplate) }),
+    };
     const listCondition: IIndexCondition = {
       select: [ 'id', 'author', 'copiedCount', 'coverImg', 'desc', 'title', 'user', 'isHot', 'createdAt' ],
       populate: { path: 'user', select: [ 'username', 'nickName', 'picture' ] },
       find: findCondition,
       ...(pageIndex && { pageIndex: parseInt(pageIndex) }),
-      ...(pageSize && { pageSize: parseInt(pageSize) })
+      ...(pageSize && { pageSize: parseInt(pageSize) }),
     };
-    const res = await ctx.service.work.getList(listCondition)
-    ctx.helper.success({ ctx, res })
+    const res = await ctx.service.work.getList(listCondition);
+    ctx.helper.success({ ctx, res });
   }
   async templateList() {
     const { ctx } = this;
@@ -50,7 +50,7 @@ export default class WorkController extends Controller {
       populate: { path: 'user', select: [ 'username', 'nickName', 'picture' ] },
       find: { isPublic: true, isTemplate: true },
       ...(pageIndex && { pageIndex: parseInt(pageIndex) }),
-      ...(pageSize && { pageSize: parseInt(pageSize) })
+      ...(pageSize && { pageSize: parseInt(pageSize) }),
     };
     const res = await ctx.service.work.getList(listCondition);
     ctx.helper.success({ ctx, res });
@@ -73,11 +73,11 @@ export default class WorkController extends Controller {
   @checkPermission('Work', 'workNoPermissionFail')
   async publish(isTemplate: boolean) {
     const { ctx } = this;
-    const url = ctx.service.work.publish(ctx.params.id, isTemplate)
-    ctx.helper.success({ ctx, res: url })
+    const url = ctx.service.work.publish(ctx.params.id, isTemplate);
+    ctx.helper.success({ ctx, res: url });
   }
   async publishWork() {
-    await this.publish(false)
+    await this.publish(false);
   }
   async publishTemplate() {
     await this.publish(true);

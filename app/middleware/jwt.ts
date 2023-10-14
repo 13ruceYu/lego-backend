@@ -6,7 +6,7 @@ function getTokenValue(ctx: Context) {
   // Authorization: Bearer xxxx
   const { authorization } = ctx.header;
   if (!ctx.header || !authorization) {
-    return false
+    return false;
   }
   if (typeof authorization === 'string') {
     const parts = authorization.trim().split(' ');
@@ -23,18 +23,18 @@ export default (options: EggAppConfig['jwt']) => {
   return async (ctx: Context, next: () => Promise<any>) => {
     const token = getTokenValue(ctx);
     if (!token) {
-      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' })
+      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' });
     }
-    const { secret } = options
+    const { secret } = options;
     if (!secret) {
-      throw new Error('jwt secret not provided')
+      throw new Error('jwt secret not provided');
     }
     try {
       const decoded = verify(token, secret);
       ctx.state.user = decoded;
-      await next()
+      await next();
     } catch (e) {
-      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' })
+      return ctx.helper.error({ ctx, errorType: 'loginValidateFail' });
     }
-  }
-}
+  };
+};
