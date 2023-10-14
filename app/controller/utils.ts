@@ -3,6 +3,7 @@ import * as sharp from 'sharp';
 import { parse, join, extname } from 'path';
 import { nanoid } from 'nanoid';
 import { createWriteStream } from 'fs';
+import { pipeline } from 'node:stream/promises';
 
 export default class UtilsController extends Controller {
   async fileLocalUpload() {
@@ -36,16 +37,14 @@ export default class UtilsController extends Controller {
     const savedThumbnailPath = join(app.config.baseDir, 'uploads', uuid + '_thumbnail' + extname((await stream).filename));
     const target = createWriteStream(savedFilePath);
     const targetThumbnail = createWriteStream(savedThumbnailPath);
-    const savePromise = new Promise(async (resolve, reject) => {
-      (await stream).pipe(target).on('finish', resolve).on('error', reject);
-    });
+    const savePromise = pipeline(await stream, target);
     const transformer = sharp().resize({ width: 300 });
-    const thumbnailPromise = new Promise(async (resolve, reject) => {
-      (await stream).pipe(transformer).pipe(targetThumbnail)
-        .on('finish', resolve)
-        .on('error', reject);
-    });
-    await Promise.all([ savePromise, thumbnailPromise ]);
+    const thumbnailPromise = pipeline(await stream, transformer, targetThumbnail);
+    try {
+      await Promise.all([ savePromise, thumbnailPromise ]);
+    } catch (e) {
+      return ctx.helper.error({ ctx, errorType: 'imageUploadFail' });
+    }
     ctx.helper.success({ ctx, res: { url: this.pathToUrl(savedFilePath), thumbnailUrl: this.pathToUrl(savedThumbnailPath) } });
   }
 }
