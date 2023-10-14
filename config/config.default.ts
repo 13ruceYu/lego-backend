@@ -40,10 +40,10 @@ export default (appInfo: EggAppInfo) => {
     origin: '*',
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
-  config.multipart = {
-    mode: 'file',
-    tmpdir: join(appInfo.baseDir, 'uploads'),
-  };
+  // config.multipart = {
+  //   mode: 'file',
+  //   tmpdir: join(appInfo.baseDir, 'uploads'),
+  // };
   config.static = {
     dir: [
       { prefix: '/public', dir: join(appInfo.baseDir, 'app/public') },
