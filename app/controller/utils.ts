@@ -24,8 +24,9 @@ export default class UtilsController extends Controller {
     }
   }
   async uploadMultipleFiles() {
-    const { ctx } = this;
+    const { ctx, app } = this;
     const parts = ctx.multipart();
+    const { fileSize } = app.config.multipart;
     const urls: string[] = [];
     let part: FileStream | string[];
     while ((part = await parts())) {
@@ -35,6 +36,10 @@ export default class UtilsController extends Controller {
           const result = await ctx.oss.put(savedOSSPath, part);
           const { url } = result;
           urls.push(url);
+          if (part.truncated) {
+            await ctx.oss.delete(savedOSSPath);
+            return ctx.helper.error({ ctx, errorType: 'imageUploadFileSizeError', error: `fileSize limit ${fileSize} bytes` });
+          }
         } catch (e) {
           await sendToWormhole(part);
           ctx.helper.error({ ctx, errorType: 'imageUploadFail' });

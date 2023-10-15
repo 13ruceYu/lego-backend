@@ -9,7 +9,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1631677352881_6029';
 
   // add your egg config in here
-  config.middleware = [ ];
+  config.middleware = [ 'customError' ];
 
   config.security = {
     csrf: {
@@ -40,10 +40,10 @@ export default (appInfo: EggAppInfo) => {
     origin: '*',
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
-  // config.multipart = {
-  //   mode: 'file',
-  //   tmpdir: join(appInfo.baseDir, 'uploads'),
-  // };
+  config.multipart = {
+    whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
+    fileSize: '500kb',
+  };
   config.static = {
     dir: [
       { prefix: '/public', dir: join(appInfo.baseDir, 'app/public') },
