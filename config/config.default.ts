@@ -79,7 +79,7 @@ export default (appInfo: EggAppInfo) => {
     },
     baseUrl: 'default.url',
     jwt: {
-      secret: 'i am secret',
+      secret: process.env.JWT_SECRET,
     },
     giteeOAuthConfig,
     githubOAuthConfig,

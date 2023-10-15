@@ -7,27 +7,29 @@ export default (app: Application) => {
   // })
   const jwt = app.middleware.jwt({ secret: app.config.jwt.secret });
 
+  router.prefix('/api');
+
   router.get('/', controller.home.index);
 
-  router.post('/api/users/create', controller.user.createByEmail);
-  router.get('/api/users/getUserInfo', jwt, controller.user.getUserInfo);
-  router.post('/api/users/loginByEmail', controller.user.loginByEmail);
-  router.post('/api/users/loginByPhoneNumber', controller.user.loginByPhoneNumber);
-  router.post('/api/users/sendVeriCode', controller.user.sendVeriCode);
+  router.post('/users/create', controller.user.createByEmail);
+  router.get('/users/getUserInfo', jwt, controller.user.getUserInfo);
+  router.post('/users/loginByEmail', controller.user.loginByEmail);
+  router.post('/users/loginByPhoneNumber', controller.user.loginByPhoneNumber);
+  router.post('/users/sendVeriCode', controller.user.sendVeriCode);
 
-  router.get('/api/users/passport/gitee', controller.user.oauth);
-  router.get('/api/users/oauth/gitee/callback', controller.user.oauthByGitee);
+  router.get('/users/passport/gitee', controller.user.oauth);
+  router.get('/users/oauth/gitee/callback', controller.user.oauthByGitee);
 
-  router.get('/api/users/passport/github', controller.user.oauthGithub);
-  router.get('/api/users/oauth/github/callback', controller.user.oauthByGithub);
+  router.get('/users/passport/github', controller.user.oauthGithub);
+  router.get('/users/oauth/github/callback', controller.user.oauthByGithub);
 
-  router.post('/api/works', jwt, controller.work.createWork);
-  router.get('/api/works', jwt, controller.work.myList);
-  router.patch('/api/works/:id', jwt, controller.work.update);
-  router.delete('/api/works/:id', jwt, controller.work.delete);
+  router.post('/works', jwt, controller.work.createWork);
+  router.get('/works', jwt, controller.work.myList);
+  router.patch('/works/:id', jwt, controller.work.update);
+  router.delete('/works/:id', jwt, controller.work.delete);
 
-  router.post('/api/works/publish/:id', jwt, controller.work.publishWork);
-  router.post('/api/works/publish-template/:id', jwt, controller.work.publishTemplate);
+  router.post('/works/publish/:id', jwt, controller.work.publishWork);
+  router.post('/works/publish-template/:id', jwt, controller.work.publishTemplate);
 
-  router.post('/api/utils/upload-img', controller.utils.uploadMultipleFiles);
+  router.post('/utils/upload-img', controller.utils.uploadMultipleFiles);
 };
