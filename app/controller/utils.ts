@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import { createWriteStream } from 'fs';
 import { pipeline } from 'node:stream/promises';
 import sendToWormhole from 'stream-wormhole';
+import { FileStream } from '../../typings/app';
 
 export default class UtilsController extends Controller {
   async uploadToOSS() {
@@ -21,6 +22,26 @@ export default class UtilsController extends Controller {
       await sendToWormhole(stream);
       ctx.helper.error({ ctx, errorType: 'imageUploadFail' });
     }
+  }
+  async uploadMultipleFiles() {
+    const { ctx } = this;
+    const parts = ctx.multipart();
+    const urls: string[] = [];
+    let part: FileStream | string[];
+    while ((part = await parts())) {
+      if (!Array.isArray(part)) {
+        try {
+          const savedOSSPath = join('imooc-test', nanoid(6) + extname(part.filename));
+          const result = await ctx.oss.put(savedOSSPath, part);
+          const { url } = result;
+          urls.push(url);
+        } catch (e) {
+          await sendToWormhole(part);
+          ctx.helper.error({ ctx, errorType: 'imageUploadFail' });
+        }
+      }
+    }
+    ctx.helper.success({ ctx, res: urls });
   }
   async fileLocalUpload() {
     const { ctx, app } = this;
