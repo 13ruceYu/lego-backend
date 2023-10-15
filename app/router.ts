@@ -5,14 +5,13 @@ export default (app: Application) => {
   // const logger = app.middleware.myLogger({
   //   allowedMethod: [ 'GET' ],
   // })
-  const jwt = app.middleware.jwt({ secret: app.config.jwt.secret });
 
   router.prefix('/api');
 
   router.get('/', controller.home.index);
 
   router.post('/users/create', controller.user.createByEmail);
-  router.get('/users/getUserInfo', jwt, controller.user.getUserInfo);
+  router.get('/users/getUserInfo', controller.user.getUserInfo);
   router.post('/users/loginByEmail', controller.user.loginByEmail);
   router.post('/users/loginByPhoneNumber', controller.user.loginByPhoneNumber);
   router.post('/users/sendVeriCode', controller.user.sendVeriCode);
@@ -23,13 +22,13 @@ export default (app: Application) => {
   router.get('/users/passport/github', controller.user.oauthGithub);
   router.get('/users/oauth/github/callback', controller.user.oauthByGithub);
 
-  router.post('/works', jwt, controller.work.createWork);
-  router.get('/works', jwt, controller.work.myList);
-  router.patch('/works/:id', jwt, controller.work.update);
-  router.delete('/works/:id', jwt, controller.work.delete);
+  router.post('/works', controller.work.createWork);
+  router.get('/works', controller.work.myList);
+  router.patch('/works/:id', controller.work.update);
+  router.delete('/works/:id', controller.work.delete);
 
-  router.post('/works/publish/:id', jwt, controller.work.publishWork);
-  router.post('/works/publish-template/:id', jwt, controller.work.publishTemplate);
+  router.post('/works/publish/:id', controller.work.publishWork);
+  router.post('/works/publish-template/:id', controller.work.publishTemplate);
 
   router.post('/utils/upload-img', controller.utils.uploadMultipleFiles);
 };

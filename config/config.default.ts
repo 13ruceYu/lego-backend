@@ -9,7 +9,6 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1631677352881_6029';
 
   // add your egg config in here
-  config.middleware = [ 'customError' ];
 
   config.security = {
     csrf: {
@@ -24,6 +23,11 @@ export default (appInfo: EggAppInfo) => {
   };
   config.mongoose = {
     url: 'mongodb://127.0.0.1:27017/lego',
+  };
+  config.jwt = {
+    enable: true,
+    secret: process.env.JWT_SECRET,
+    match: [ '/api/users/getUserInfo', '/api/works', '/api/utils/upload-img' ],
   };
   config.bcrypt = {
     saltRound: 10,
@@ -78,9 +82,6 @@ export default (appInfo: EggAppInfo) => {
       allowedMethod: [ 'POST', 'GET' ],
     },
     baseUrl: 'default.url',
-    jwt: {
-      secret: process.env.JWT_SECRET,
-    },
     giteeOAuthConfig,
     githubOAuthConfig,
     H5BaseURL: 'http://localhost:7001/api/pages',
