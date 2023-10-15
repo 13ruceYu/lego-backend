@@ -4,8 +4,24 @@ import { parse, join, extname } from 'path';
 import { nanoid } from 'nanoid';
 import { createWriteStream } from 'fs';
 import { pipeline } from 'node:stream/promises';
+import sendToWormhole from 'stream-wormhole';
 
 export default class UtilsController extends Controller {
+  async uploadToOSS() {
+    const { ctx, app } = this;
+    const stream = await ctx.getFileStream();
+    // lego-backend-vue/imooc-test/uuid.ext
+    const saveOSSPath = join('imooc-test', nanoid(6) + extname(stream.filename));
+    try {
+      const result = await ctx.oss.put(saveOSSPath, stream);
+      app.logger.info({ result });
+      const { url, name } = result;
+      ctx.helper.success({ ctx, res: { url, name } });
+    } catch (e) {
+      await sendToWormhole(stream);
+      ctx.helper.error({ ctx, errorType: 'imageUploadFail' });
+    }
+  }
   async fileLocalUpload() {
     const { ctx, app } = this;
     const { filepath } = ctx.request.files[0];

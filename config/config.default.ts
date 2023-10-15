@@ -50,6 +50,14 @@ export default (appInfo: EggAppInfo) => {
       { prefix: '/uploads', dir: join(appInfo.baseDir, 'uploads') },
     ],
   };
+  config.oss = {
+    client: {
+      accessKeyId: process.env.ALI_ACCESS_KEY || '',
+      accessKeySecret: process.env.ALI_SECRET_KEY || '',
+      bucket: 'lego-backend-vue',
+      endpoint: 'oss-cn-hangzhou.aliyuncs.com',
+    },
+  };
   const giteeOAuthConfig = {
     cid: process.env.GITEE_CID,
     secret: process.env.GITEE_SECRET,
