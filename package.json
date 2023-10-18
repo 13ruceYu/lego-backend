@@ -39,7 +39,8 @@
     "mongoose-sequence": "^5.3.1",
     "nanoid": "^3.3.6",
     "sharp": "^0.32.6",
-    "stream-wormhole": "^2.0.1"
+    "stream-wormhole": "^2.0.1",
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@types/ali-oss": "^6.16.9",

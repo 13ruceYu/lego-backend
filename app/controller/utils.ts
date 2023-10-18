@@ -6,8 +6,21 @@ import { createWriteStream } from 'fs';
 import { pipeline } from 'node:stream/promises';
 import sendToWormhole from 'stream-wormhole';
 import { FileStream } from '../../typings/app';
+import { createSSRApp } from 'vue';
+import { renderToString } from '@vue/server-renderer';
 
 export default class UtilsController extends Controller {
+  async renderH5Page() {
+    const vueApp = createSSRApp({
+      data: () => ({ msg: 'hello ssr vue' }),
+      template: '<h1>{{msg}}</h1>',
+    });
+    const appContent = await renderToString(vueApp);
+    console.log('🚀 ~ file: utils.ts:19 ~ UtilsController ~ renderH5Page ~ appContent:', appContent);
+
+    this.ctx.response.type = 'text/html';
+    this.ctx.body = appContent;
+  }
   async uploadToOSS() {
     const { ctx, app } = this;
     const stream = await ctx.getFileStream();
