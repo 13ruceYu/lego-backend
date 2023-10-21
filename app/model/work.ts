@@ -3,7 +3,7 @@ import { Schema, ObjectId } from 'mongoose';
 import * as AutoIncrementFactory from 'mongoose-sequence';
 
 export interface IWorkProps {
-  id?: number;
+  id?: string;
   uuid: string;
   title: string;
   desc: string;
