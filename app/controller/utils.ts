@@ -6,20 +6,27 @@ import { createWriteStream } from 'fs';
 import { pipeline } from 'node:stream/promises';
 import sendToWormhole from 'stream-wormhole';
 import { FileStream } from '../../typings/app';
-import { createSSRApp } from 'vue';
-import { renderToString } from '@vue/server-renderer';
 
 export default class UtilsController extends Controller {
+  splitIdAndUuid(str = '') {
+    const result = { id: '', uuid: '' };
+    if (!str) return result;
+    const firstIndex = str.indexOf('-');
+    if (firstIndex < 0) return result;
+    result.id = str.slice(0, firstIndex);
+    result.uuid = str.slice(firstIndex + 1);
+    return result;
+  }
   async renderH5Page() {
-    const vueApp = createSSRApp({
-      data: () => ({ msg: 'hello ssr vue' }),
-      template: '<h1>{{msg}}</h1>',
-    });
-    const appContent = await renderToString(vueApp);
-    console.log('🚀 ~ file: utils.ts:19 ~ UtilsController ~ renderH5Page ~ appContent:', appContent);
-
-    this.ctx.response.type = 'text/html';
-    this.ctx.body = appContent;
+    const { ctx } = this;
+    const { idAndUuid } = ctx.params;
+    const query = this.splitIdAndUuid(idAndUuid);
+    try {
+      const { html, title, desc, bodyStyle } = await this.service.utils.renderToPageData(query);
+      await ctx.render('page.nj', { html, title, desc, bodyStyle });
+    } catch (e) {
+      ctx.helper.error({ ctx, errorType: 'h5WorkNotExistError' });
+    }
   }
   async uploadToOSS() {
     const { ctx, app } = this;

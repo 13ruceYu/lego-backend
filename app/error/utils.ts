@@ -11,4 +11,8 @@ export const utilsErrorMessages = {
     errno: 103003,
     message: '上传图片超过最大限制',
   },
+  h5WorkNotExistError: {
+    errno: 103004,
+    message: 'h5 不存在',
+  },
 };
