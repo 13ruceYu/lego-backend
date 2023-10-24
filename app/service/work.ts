@@ -46,7 +46,7 @@ export default class WorkService extends Service {
       pageIndex,
     };
   }
-  async publish(id: number, isTemplate = false) {
+  async publish(id: string, isTemplate = false) {
     const { ctx, app } = this;
     const { H5BaseURL } = app.config;
     const payload: Partial<IWorkProps> = {

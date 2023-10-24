@@ -19,7 +19,8 @@
     "ci": "npm run lint && npm run cov && npm run tsc",
     "autod": "autod",
     "lint": "eslint . --ext .ts",
-    "clean": "ets clean"
+    "clean": "ets clean",
+    "build:template": "npx webpack --config webpack/webpack.config.js"
   },
   "dependencies": {
     "axios": "^0.21.4",
@@ -51,13 +52,20 @@
     "@types/supertest": "^2.0.0",
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
     "egg-bin": "^4.11.0",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.16.0",
     "eslint": "^6.7.2",
     "eslint-config-egg": "^8.0.0",
+    "filemanager-webpack-plugin": "^8.0.0",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
     "tslib": "^1.9.0",
-    "typescript": "^3.0.0"
+    "typescript": "^3.0.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   },
   "engines": {
     "node": ">=8.9.0"
