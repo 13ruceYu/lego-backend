@@ -58,8 +58,8 @@ export default (appInfo: EggAppInfo) => {
     client: {
       accessKeyId: process.env.ALI_ACCESS_KEY || '',
       accessKeySecret: process.env.ALI_SECRET_KEY || '',
-      bucket: 'lego-backend-vue',
-      endpoint: 'oss-cn-hangzhou.aliyuncs.com',
+      bucket: process.env.ALI_OSS_BUCKET,
+      endpoint: process.env.ALI_OSS_ENDPOINT,
     },
   };
   const giteeOAuthConfig = {
