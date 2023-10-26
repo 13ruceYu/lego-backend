@@ -2,6 +2,11 @@ import { Application } from 'egg';
 import { Schema, ObjectId } from 'mongoose';
 import * as AutoIncrementFactory from 'mongoose-sequence';
 
+interface IChannelProps {
+  name: string;
+  id: string;
+}
+
 export interface IWorkProps {
   id?: string;
   uuid: string;
@@ -17,6 +22,7 @@ export interface IWorkProps {
   status?: 0 | 1 | 2;
   user: ObjectId;
   latestPublishAt?: Date;
+  channels?: IChannelProps[];
 }
 
 function initWorkModel(app: Application) {
@@ -35,6 +41,7 @@ function initWorkModel(app: Application) {
     status: { type: Number, default: 1 },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     latestPublishAt: { type: Date },
+    channels: { type: Array },
   }, {
     timestamps: true,
     toJSON: {

@@ -1,6 +1,7 @@
 import { Controller } from 'egg';
 import validateInput from '../decorator/inputValidate';
 import checkPermission from '../decorator/checkPermission';
+import { nanoid } from 'nanoid';
 
 export interface IIndexCondition {
   pageIndex?: number;
@@ -15,7 +16,56 @@ const workCreateRules = {
   title: 'string',
 };
 
+const channelCreateRules = {
+  name: 'string',
+  workId: 'number',
+};
+
 export default class WorkController extends Controller {
+  @validateInput(channelCreateRules, 'channelValidateFail')
+  async createChannel() {
+    const { ctx } = this;
+    const { name, workId } = ctx.request.body;
+    const newChannel = {
+      name,
+      id: nanoid(6),
+    };
+
+    const res = await ctx.model.Work.findOneAndUpdate({ id: workId }, { $push: { channels: newChannel } });
+    if (res) {
+      ctx.helper.success({ ctx, res: newChannel });
+    } else {
+      ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
+    }
+  }
+
+  async getWorkChannel() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const res = await ctx.model.Work.findOne({ id });
+    if (res) {
+      const channels = res.channels || [];
+      ctx.helper.success({ ctx, res: { count: channels.length, list: channels } });
+    } else {
+      ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
+    }
+  }
+
+  async updateChannelName() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const { name } = ctx.request.body;
+    await ctx.model.Work.findOneAndUpdate({ 'channels.id': id }, { $set: { 'channels.$.name': name } });
+    ctx.helper.success({ ctx, res: { name } });
+  }
+
+  async deleteChannel() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const work = await ctx.model.Work.findOneAndUpdate({ 'channels.id': id }, { $pull: { channels: { id } } }, { new: true });
+    ctx.helper.success({ ctx, res: work });
+  }
+
   @validateInput(workCreateRules, 'workValidateFail')
   async createWork() {
     const { ctx, service } = this;
