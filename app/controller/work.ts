@@ -22,6 +22,13 @@ const channelCreateRules = {
 };
 
 export default class WorkController extends Controller {
+  @checkPermission('Work', 'workNoPermissionFail')
+  async myWork() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const res = await this.ctx.model.Work.findOne({ id }).lean();
+    ctx.helper.success({ ctx, res });
+  }
   @validateInput(channelCreateRules, 'channelValidateFail')
   async createChannel() {
     const { ctx } = this;

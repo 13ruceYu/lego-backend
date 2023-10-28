@@ -24,6 +24,7 @@ export default (app: Application) => {
 
   router.post('/works', controller.work.createWork);
   router.get('/works', controller.work.myList);
+  router.get('/works/:id', controller.work.myWork);
   router.patch('/works/:id', controller.work.update);
   router.delete('/works/:id', controller.work.delete);
 

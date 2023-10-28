@@ -14,6 +14,7 @@ export interface IUserProps {
   type: 'email' | 'cellphone' | 'oauth';
   provider?: 'github' | 'gitee';
   oauthId?: string;
+  role?: 'admin' | 'normal';
 }
 
 function initUserModel(app: Application) {
@@ -28,6 +29,7 @@ function initUserModel(app: Application) {
     type: { type: String, default: 'email' },
     provider: String,
     oauthId: String,
+    role: { type: String, default: 'normal' },
   }, {
     timestamps: true,
     toJSON: {
