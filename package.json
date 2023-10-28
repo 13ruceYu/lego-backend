@@ -28,6 +28,7 @@
     "@casl/ability": "^6.5.0",
     "ali-oss": "^6.18.1",
     "axios": "^0.21.4",
+    "consola": "^3.2.3",
     "dotenv": "^16.3.1",
     "egg": "^2.6.1",
     "egg-bcrypt": "^1.1.0",
@@ -41,6 +42,7 @@
     "egg-view-nunjucks": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
     "lego-components": "^0.1.7",
+    "lodash": "^4.17.21",
     "mongoose": "^5.13.20",
     "mongoose-sequence": "^5.3.1",
     "nanoid": "^3.3.6",
@@ -51,6 +53,7 @@
   "devDependencies": {
     "@types/ali-oss": "^6.16.9",
     "@types/jsonwebtoken": "^9.0.3",
+    "@types/lodash": "^4.14.200",
     "@types/mocha": "^2.2.40",
     "@types/node": "^16.18.58",
     "@types/supertest": "^2.0.0",

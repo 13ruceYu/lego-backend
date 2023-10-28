@@ -74,6 +74,7 @@ export default class WorkController extends Controller {
   }
 
   @validateInput(workCreateRules, 'workValidateFail')
+  @checkPermission('Work', 'workNoPermissionFail')
   async createWork() {
     const { ctx, service } = this;
     const workData = await service.work.createEmptyWork(ctx.request.body);
