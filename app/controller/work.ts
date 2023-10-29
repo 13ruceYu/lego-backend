@@ -29,7 +29,9 @@ export default class WorkController extends Controller {
     const res = await this.ctx.model.Work.findOne({ id }).lean();
     ctx.helper.success({ ctx, res });
   }
+
   @validateInput(channelCreateRules, 'channelValidateFail')
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissionFail', { value: { type: 'body', valueKey: 'workId' } })
   async createChannel() {
     const { ctx } = this;
     const { name, workId } = ctx.request.body;
@@ -46,6 +48,7 @@ export default class WorkController extends Controller {
     }
   }
 
+  @checkPermission({ mongoose: 'Work', casl: 'Channel' }, 'workNoPermissionFail')
   async getWorkChannel() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -58,6 +61,7 @@ export default class WorkController extends Controller {
     }
   }
 
+  @checkPermission({ mongoose: 'Work', casl: 'Channel' }, 'workNoPermissionFail', { key: 'channels.id' })
   async updateChannelName() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -66,6 +70,7 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res: { name } });
   }
 
+  @checkPermission({ mongoose: 'Work', casl: 'Channel' }, 'workNoPermissionFail', { key: 'channels.id' })
   async deleteChannel() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -81,6 +86,7 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res: workData });
   }
 
+  @checkPermission('Work', 'workNoPermissionFail')
   async myList() {
     const { ctx } = this;
     const userId = ctx.state.user._id;
@@ -128,10 +134,10 @@ export default class WorkController extends Controller {
     const res = await ctx.model.Work.findOneAndDelete({ id }).select([ '_id', 'id', 'title' ]);
     ctx.helper.success({ ctx, res });
   }
-  @checkPermission('Work', 'workNoPermissionFail')
+  @checkPermission('Work', 'workNoPermissionFail', { action: 'publish' })
   async publish(isTemplate: boolean) {
     const { ctx } = this;
-    const url = ctx.service.work.publish(ctx.params.id, isTemplate);
+    const url = await ctx.service.work.publish(ctx.params.id, isTemplate);
     ctx.helper.success({ ctx, res: url });
   }
   async publishWork() {

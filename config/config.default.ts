@@ -23,6 +23,9 @@ export default (appInfo: EggAppInfo) => {
   };
   config.mongoose = {
     url: 'mongodb://127.0.0.1:27017/lego',
+    options: {
+      useFindAndModify: false,
+    },
   };
   config.jwt = {
     enable: true,
