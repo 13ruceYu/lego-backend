@@ -14,6 +14,7 @@ export default (appInfo: EggAppInfo) => {
     csrf: {
       enable: false,
     },
+    domainWhiteList: [ 'http://localhost:8080' ],
   };
   config.view = {
     defaultViewEngine: 'nunjucks',
@@ -42,10 +43,6 @@ export default (appInfo: EggAppInfo) => {
       password: '',
       db: 0,
     },
-  };
-  config.cors = {
-    origin: '*',
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
   config.multipart = {
     whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
@@ -88,6 +85,7 @@ export default (appInfo: EggAppInfo) => {
     giteeOAuthConfig,
     githubOAuthConfig,
     H5BaseURL: 'http://localhost:7001/api/pages',
+    jwtExpires: '1h',
   };
 
   // the return config will combines to EggAppConfig
