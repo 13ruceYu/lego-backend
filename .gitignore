@@ -27,3 +27,4 @@ config/**/*.map
 
 myLog.txt
 uploads
+.docker-volumes

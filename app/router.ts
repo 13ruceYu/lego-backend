@@ -8,7 +8,7 @@ export default (app: Application) => {
 
   router.prefix('/api');
 
-  router.get('/', controller.home.index);
+  router.get('/ping', controller.home.index);
 
   router.post('/users/create', controller.user.createByEmail);
   router.get('/users/getUserInfo', controller.user.getUserInfo);
@@ -30,6 +30,8 @@ export default (app: Application) => {
 
   router.post('/works/publish/:id', controller.work.publishWork);
   router.post('/works/publish-template/:id', controller.work.publishTemplate);
+
+  router.get('/templates', controller.work.templateList);
 
   router.post('/utils/upload-img', controller.utils.uploadMultipleFiles);
 

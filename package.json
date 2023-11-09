@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-lego-backend",
+    "start-no-daemon": "egg-scripts start --title=egg-server-lego-backend",
     "stop": "egg-scripts stop --title=egg-server-lego-backend",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
@@ -46,7 +47,6 @@
     "mongoose": "^5.13.20",
     "mongoose-sequence": "^5.3.1",
     "nanoid": "^3.3.6",
-    "sharp": "^0.32.6",
     "stream-wormhole": "^2.0.1",
     "vue": "^3.3.4"
   },

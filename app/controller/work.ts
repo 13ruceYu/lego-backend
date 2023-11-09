@@ -113,6 +113,7 @@ export default class WorkController extends Controller {
       select: [ 'id', 'author', 'copiedCount', 'coverImg', 'desc', 'title', 'user', 'isHot', 'createdAt' ],
       populate: { path: 'user', select: [ 'username', 'nickName', 'picture' ] },
       find: { isPublic: true, isTemplate: true },
+      // find: { isTemplate: true },
       ...(pageIndex && { pageIndex: parseInt(pageIndex) }),
       ...(pageSize && { pageSize: parseInt(pageSize) }),
     };

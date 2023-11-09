@@ -26,6 +26,8 @@ export default (appInfo: EggAppInfo) => {
     url: 'mongodb://127.0.0.1:27017/lego',
     options: {
       useFindAndModify: false,
+      user: 'user',
+      pass: '123456',
     },
   };
   config.jwt = {
