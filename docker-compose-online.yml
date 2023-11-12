@@ -20,7 +20,7 @@ services:
     env_file:
       - .env
   lego-server:
-    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.2
+    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:{{tag}}
     container_name: lego-server
     ports:
       - 7001:7001
