@@ -16,6 +16,8 @@ jobs:
           touch .env
           echo ALI_ACCESS_KEY=${{secrets.ALI_ACCESS_KEY}} >> .env
           echo ALI_SECRET_KEY=${{secrets.ALI_SECRET_KEY}} >> .env
+          echo ALI_OSS_BUCKET=${{secrets.ALI_OSS_BUCKET}} >> .env
+          echo ALI_OSS_ENDPOINT=${{secrets.ALI_OSS_ENDPOINT}} >> .env
           echo GH_CID=${{secrets.GH_CID}} >> .env
           echo GH_SECRET=${{secrets.GH_SECRET}} >> .env
           echo GITEE_CID=${{secrets.GITEE_CID}} >> .env

@@ -20,13 +20,13 @@ services:
     env_file:
       - .env
   lego-server:
-    depends_on:
-      - lego-mongo
-      - lego-redis
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: lego-server
+    # depends_on:
+    #   - lego-mongo
+    #   - lego-redis
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:v.0.0.5
     container_name: lego-server
     ports:
       - 7001:7001
