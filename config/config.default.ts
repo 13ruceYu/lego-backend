@@ -71,8 +71,8 @@ export default (appInfo: EggAppInfo) => {
     authURL: 'https://gitee.com/oauth/token?grant_type=authorization_code',
   };
   const githubOAuthConfig = {
-    cid: process.env.GITHUB_CID,
-    secret: process.env.GITHUB_SECRET,
+    cid: process.env.GH_CID,
+    secret: process.env.GH_SECRET,
     redirectURL: 'http://localhost:7001/api/users/oauth/github/callback',
     authURL: 'https://github.com/login/oauth/access_token',
     githubUserApi: 'https://api.github.com/user',

@@ -1,0 +1,38 @@
+name: deploy app to server
+on: [push]
+jobs:
+  deploy-and-restart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: create env file
+        run: |
+          touch .env
+          echo ALI_ACCESS_KEY=${{secrets.ALI_ACCESS_KEY}} >> .env
+          echo ALI_SECRET_KEY=${{secrets.ALI_SECRET_KEY}} >> .env
+          echo GH_CID=${{secrets.GH_CID}} >> .env
+          echo GH_SECRET=${{secrets.GH_SECRET}} >> .env
+          echo GITEE_CID=${{secrets.GITEE_CID}} >> .env
+          echo GITEE_SECRET=${{secrets.GITEE_SECRET}} >> .env
+          echo JWT_SECRET=${{secrets.JWT_SECRET}} >> .env
+          echo MONGO_INITDB_ROOT_USERNAME=${{secrets.MONGO_INITDB_ROOT_USERNAME}} >> .env
+          echo MONGO_INITDB_ROOT_PASSWORD=${{secrets.MONGO_INITDB_ROOT_PASSWORD}} >> .env
+          echo MONGO_INITDB_ROOT_USERNAME=${{secrets.MONGO_INITDB_ROOT_USERNAME}} >> .env
+          echo MONGO_DB_USERNAME=${{secrets.MONGO_DB_USERNAME}} >> .env
+          echo MONGO_DB_PASSWORD=${{secrets.MONGO_DB_PASSWORD}} >> .env
+          echo REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}} >> .env
+          echo PING_ENV=${{secrets.PING_ENV}} >> .env
+      - name: copy nessesary files to on folder
+        run: |
+          mkdir lego-backend
+          cp .env docker-compose-online.yml lego-backend
+          cp -r mongo-entrypoint lego-backend
+          ls -a lego-backend
+      - name: copy lego-backend folder to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PWD }}
+          source: lego-backend
+          target: ~
