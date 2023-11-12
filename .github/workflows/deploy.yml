@@ -35,4 +35,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PWD }}
           source: lego-backend
-          target: ~
+          target: '~'
