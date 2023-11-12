@@ -1,0 +1,28 @@
+version: '3'
+services:
+  lego-mongo:
+    image: mongo
+    container_name: lego-mongo
+    volumes:
+      - '.docker-volumes/mongo/data:/data/db'
+      - '$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/'
+    ports:
+      - 27017:27017
+    env_file:
+      - .env
+  lego-redis:
+    image: redis:6
+    container_name: lego-redis
+    command: >
+      --requirepass ${REDIS_PASSWORD}
+    ports:
+      - 6379:6379
+    env_file:
+      - .env
+  lego-server:
+    image: registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.1
+    container_name: lego-server
+    ports:
+      - 7002:7001
+    env_file:
+      - .env

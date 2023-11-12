@@ -1,0 +1,26 @@
+name: build image, push to ACR
+on: [push]
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout 代码
+      - uses: actions/checkout@v2
+      # 创建 .env 文件
+      - run: touch .env
+      - run: echo ALI_ACCESS_KEY=${{secrets.ALI_ACCESS_KEY}} >> .env
+      - run: echo ALI_SECRET_KEY=${{secrets.ALI_SECRET_KEY}} >> .env
+      - run: echo ALI_OSS_ENDPOINT=${{secrets.ALI_OSS_ENDPOINT}} >> .env
+      - run: echo ALI_OSS_BUCKET=${{secrets.ALI_OSS_BUCKET}} >> .env
+      # 使用阿里云ACR 登录 docker
+      - name: login ACR
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: https://registry.cn-hangzhou.aliyuncs.com
+          username: ${{secrets.ACR_USERNME}}
+          password: ${{secrets.ACR_PASSWORD}}
+      # 使用阿里云 tag 进行 docker build
+      - name: build image for docker
+        run: docker build --tag "registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.2" .
+      - name: push image to acr
+        run: docker push registry.cn-hangzhou.aliyuncs.com/13ruceyu/lego-backend:0.0.2
