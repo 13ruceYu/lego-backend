@@ -48,6 +48,6 @@ jobs:
           script: |
             docker login --username=${{secrets.ACR_USERNME}} --password=${{secrets.ACR_PASSWORD}} registry.cn-hangzhou.aliyuncs.com
             cd ~/lego-backend
-            docker compose restart -f docker-compose-online.yml
+            docker compose -f docker-compose-online.yml restart
             rm -rf .env
             docker logout registry.cn-hangzhou.aliyuncs.com
