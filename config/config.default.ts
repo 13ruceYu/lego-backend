@@ -26,7 +26,7 @@ export default (appInfo: EggAppInfo) => {
     url: 'mongodb://127.0.0.1:27017/lego',
     options: {
       useFindAndModify: false,
-      user: 'user',
+      user: 'bruce',
       pass: '123456',
     },
   };
@@ -48,7 +48,7 @@ export default (appInfo: EggAppInfo) => {
   };
   config.multipart = {
     whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
-    fileSize: '500kb',
+    fileSize: '5000kb',
   };
   config.static = {
     dir: [
