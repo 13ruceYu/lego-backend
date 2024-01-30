@@ -86,7 +86,6 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res: workData });
   }
 
-  @checkPermission('Work', 'workNoPermissionFail')
   async myList() {
     const { ctx } = this;
     const userId = ctx.state.user._id;

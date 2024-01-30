@@ -87,7 +87,7 @@ export default (appInfo: EggAppInfo) => {
     giteeOAuthConfig,
     githubOAuthConfig,
     H5BaseURL: 'http://localhost:7001/api/pages',
-    jwtExpires: '1h',
+    jwtExpires: '7 days',
   };
 
   // the return config will combines to EggAppConfig

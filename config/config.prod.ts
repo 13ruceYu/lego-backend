@@ -24,7 +24,7 @@ export default () => {
     domainWhiteList: [],
   };
   // 3. jwt 过期时间
-  config.jwtExpires = '2 days';
+  config.jwtExpires = '7 days';
   // 4. 本地 URL 替换
   // config.githubOAuthConfig.redirectURL = '';
   config.githubOAuthConfig = {

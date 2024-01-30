@@ -59,7 +59,6 @@ export default function checkPermission(modelName: string | IModelMapping, error
       };
       const mongooseModelName = typeof modelName === 'string' ? modelName : modelName.mongoose;
       const caslModelName = typeof modelName === 'string' ? modelName : modelName.casl;
-      console.log('🚀 ~ file: checkPermission.ts:63 ~ ctx.state:', ctx.state.user);
       if (!ctx.state && !ctx.state.user) {
         return ctx.helper.error({ ctx, errorType });
       }
@@ -74,7 +73,7 @@ export default function checkPermission(modelName: string | IModelMapping, error
       } else {
         permission = ability.can(action, caslModelName);
       }
-      // 判断 rule 中是否有受限字段
+      // 判断 rule 中是否有受限字
       if (rule && rule.fields) {
         const fields = permittedFieldsOf(ability, action, caslModelName, fieldsOptions);
         if (fields.length > 0) {
