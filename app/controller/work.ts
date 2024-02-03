@@ -119,6 +119,15 @@ export default class WorkController extends Controller {
     const res = await ctx.service.work.getList(listCondition);
     ctx.helper.success({ ctx, res });
   }
+  async template() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const res = await this.ctx.model.Work.findOne({ id }).lean();
+    if (!res?.isPublic || !res.isTemplate) {
+      return ctx.helper.error({ ctx, errorType: 'workNoPublicFail' });
+    }
+    ctx.helper.success({ ctx, res });
+  }
   @checkPermission('Work', 'workNoPermissionFail')
   async update() {
     const { ctx } = this;

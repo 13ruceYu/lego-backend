@@ -31,6 +31,7 @@ export default (app: Application) => {
   router.post('/works/publish/:id', controller.work.publishWork);
   router.post('/works/publish-template/:id', controller.work.publishTemplate);
 
+  router.get('/templates/:id', controller.work.template);
   router.get('/templates', controller.work.templateList);
 
   router.post('/utils/upload-img', controller.utils.uploadMultipleFiles);
