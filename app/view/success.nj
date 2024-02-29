@@ -19,7 +19,7 @@
         type: 'oauth-token',
         token: '{{token}}'
       }
-      window.opener.postMessage(message, 'http://127.0.0.1:5173')
+      window.opener.postMessage(message, '{{referer}}')
       window.close()
     }, 2000)
   }

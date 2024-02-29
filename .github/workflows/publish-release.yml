@@ -20,6 +20,7 @@ jobs:
           echo ALI_OSS_ENDPOINT=${{secrets.ALI_OSS_ENDPOINT}} >> .env
           echo GH_CID=${{secrets.GH_CID}} >> .env
           echo GH_SECRET=${{secrets.GH_SECRET}} >> .env
+          echo BASE_URL=${{secrets.BASE_URL}} >> .env
           echo GITEE_CID=${{secrets.GITEE_CID}} >> .env
           echo GITEE_SECRET=${{secrets.GITEE_SECRET}} >> .env
           echo JWT_SECRET=${{secrets.JWT_SECRET}} >> .env

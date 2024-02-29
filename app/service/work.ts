@@ -52,7 +52,7 @@ export default class WorkService extends Service {
     const payload: Partial<IWorkProps> = {
       status: 2,
       latestPublishAt: new Date(),
-      ...(isTemplate && { isTemplate: true }),
+      ...(isTemplate && { isTemplate: true, isPublic: true }),
     };
     const res = await ctx.model.Work.findOneAndUpdate({ id }, payload, { new: true });
     return `${H5BaseURL}/p/${id}-${res?.uuid}`;

@@ -28,7 +28,11 @@ export default () => {
   // 4. 本地 URL 替换
   // config.githubOAuthConfig.redirectURL = '';
   config.githubOAuthConfig = {
-    redirectURL: '',
+    cid: process.env.GH_CID,
+    secret: process.env.GH_SECRET,
+    redirectURL: `${process.env.BASE_URL}/api/users/oauth/github/callback`,
+    authURL: 'https://github.com/login/oauth/access_token',
+    githubUserApi: 'https://api.github.com/user',
   };
   config.H5BaseURL = '';
   return config;

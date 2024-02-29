@@ -24,6 +24,7 @@ test/**/*.map
 config/**/*.map
 
 .env
+.env.production
 
 myLog.txt
 uploads

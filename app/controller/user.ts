@@ -83,19 +83,19 @@ export default class UserController extends Controller {
   async oauth() {
     const { app, ctx } = this;
     const { cid, redirectURL } = app.config.giteeOAuthConfig;
-    ctx.redirect(`https://gitee.com/oauth/authorize?client_id=${cid}&redirect_uri=${redirectURL}&response_type=code`);
+    ctx.unsafeRedirect(`https://gitee.com/oauth/authorize?client_id=${cid}&redirect_uri=${redirectURL}&response_type=code`);
   }
 
   async oauthGithub() {
     const { app, ctx } = this;
     const { cid, redirectURL } = app.config.githubOAuthConfig;
-    ctx.redirect(`https://github.com/login/oauth/authorize?client_id=${cid}&redirect_uri=${redirectURL}`);
+    ctx.unsafeRedirect(`https://github.com/login/oauth/authorize?client_id=${cid}&redirect_uri=${redirectURL}`);
   }
 
   async oauthByGitee() {
     const { ctx } = this;
-    const { code } = ctx.request.body;
-    const resp = await this.service.user.getAccessToken(code);
+    const { code } = ctx.request.queries;
+    const resp = await this.service.user.getAccessToken(code[0]);
     if (resp) {
       ctx.helper.success({ ctx, res: resp });
     }
@@ -104,10 +104,11 @@ export default class UserController extends Controller {
   async oauthByGithub() {
     const { ctx } = this;
     const { code } = ctx.request.query;
+    const { referer } = ctx.request.header;
     try {
       const token = await this.service.user.loginByGithub(code);
       // ctx.helper.success({ ctx, res: { token } });
-      await ctx.render('success.nj', { token });
+      await ctx.render('success.nj', { token, referer });
     } catch (e) {
       return ctx.helper.error({ ctx, errorType: 'githubOauthError' });
     }
