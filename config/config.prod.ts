@@ -21,7 +21,7 @@ export default () => {
   };
   // 2. 配置 cors 允许的域名
   config.security = {
-    domainWhiteList: [ 'https://lego-ui.vercel.app/' ],
+    domainWhiteList: [ 'https://lego-ui.vercel.app/', 'https://lego-ui.pages.dev/' ],
   };
   // 3. jwt 过期时间
   config.jwtExpires = '7 days';
