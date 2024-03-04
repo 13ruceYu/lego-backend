@@ -22,7 +22,7 @@ export default () => {
   // 2. 配置 cors 允许的域名
   config.security = {
     // nginx 代理
-    domainWhiteList: [ 'http://localhost:80', 'http://localhost:443' ],
+    domainWhiteList: [ '*' ],
   };
   // 3. jwt 过期时间
   config.jwtExpires = '7 days';
