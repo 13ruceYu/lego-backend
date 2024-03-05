@@ -14,7 +14,6 @@ export default (appInfo: EggAppInfo) => {
     csrf: {
       enable: false,
     },
-    domainWhiteList: [ 'http://localhost:8080' ],
   };
   config.view = {
     defaultViewEngine: 'nunjucks',
