@@ -20,10 +20,10 @@ export default () => {
     },
   };
   // 2. 配置 cors 允许的域名
-  // config.security = {
-  //   // nginx 代理
-  //   domainWhiteList: [ '*' ],
-  // };
+  config.security = {
+    // nginx 代理
+    domainWhiteList: [ '*' ],
+  };
   // 3. jwt 过期时间
   config.jwtExpires = '7 days';
   // 4. 本地 URL 替换
