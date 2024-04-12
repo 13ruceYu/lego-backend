@@ -86,6 +86,17 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res: workData });
   }
 
+  async createWorkByTemplate() {
+    const { ctx, service } = this;
+    const { id } = ctx.request.body;
+    const templateData = await this.ctx.model.Work.findOne({ id }).lean();
+    const workData = await service.work.createEmptyWork({
+      content: templateData?.content,
+      title: `${templateData?.title}-copy`,
+    });
+    ctx.helper.success({ ctx, res: workData });
+  }
+
   async myList() {
     const { ctx } = this;
     const userId = ctx.state.user._id;

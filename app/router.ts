@@ -30,6 +30,7 @@ export default (app: Application) => {
 
   router.post('/works/publish/:id', controller.work.publishWork);
   router.post('/works/publish-template/:id', controller.work.publishTemplate);
+  router.post('/works/by-template', controller.work.createWorkByTemplate);
 
   router.get('/templates/:id', controller.work.template);
   router.get('/templates', controller.work.templateList);
